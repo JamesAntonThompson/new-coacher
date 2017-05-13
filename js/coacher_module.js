@@ -2,6 +2,7 @@
 'use strict';
 
 	// angular.module('seti', ['ui.router']).config(config);
+	// angular.module('coacher', ['timer']);
 	angular.module('coacher', []);
 	
 	// config.$inject = ['$stateProvider', '$urlRouterProvider'];
