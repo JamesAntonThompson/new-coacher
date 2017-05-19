@@ -15,6 +15,7 @@
 		<!-- My stuff -->
 		<link rel="stylesheet" href="coacher.css">
 		<script src="coacher_module.js"></script>
+		<script type="text/javascript" src="players_service.js"></script>
 		<!-- Timer Directive -->
 		<script src="my_timer.js"></script>
 	</head>
@@ -24,83 +25,81 @@
 				<div ng-controller="gameTimer as $ctrl">
 					<div class="row">
 						<div>
-							<h1 class="col-md-6 col-sm-6">Coacher</h1>
+							<h1 class="col-md-3 col-sm-3">Coacher</h1>
+							<h1 class="col-md-3 col-sm-3">{{$ctrl.gameStatus}}</h1>
 							<!-- <h1 class="col-md-3">{{$ctrl.gameLengthMinutes}}:{{$ctrl.gameLengthSeconds}}</h1> -->
 							<h1 class="col-md-2 col-sm-2">{{$ctrl.gameRemaining | date:'mm:ss'}}</h1>
 							<div class="col-md-2 col-sm-2">
-								<button ng-if="$ctrl.timerStatus == 'off'" class="default-btn" ng-click="$ctrl.start()">Start</button>
-								<button ng-if="$ctrl.timerStatus == 'on'" class="default-btn" ng-click="$ctrl.stop()">Pause</button>
+								<button ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()">Start</button>
+								<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()">Pause</button>
 							</div>
 							<div class="col-md-2 col-sm-2">
-								<button ng-if="$ctrl.timerStatus == 'on'" class="default-btn" ng-click="$ctrl.end()">End</button>
+								<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()">End</button>
 							</div>
 						</div>
 					</div> <!-- end Row -->
 					<div class="row">
 						<div class="col-md-3 col-sm-3" style="border: 1px solid black">
-							<h3 class="text-center">Forwards</h3>
+							<h3 class="text-center">Forwards <button class="btn btn-default" ng-click="$ctrl.addForwardClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
+							<!-- <h3 class="text-center">Hi</h3><span class="glyphicon glyphicon-download-alt"></span> -->
+							
 							<div class="row">
-								<div ng-repeat="player in $ctrl.teamList | filter: {pos:'ATT'} | orderBy: 'rml'">
-									<div class="col-md-12" ng-class="player.selected ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.name );">
+								<div ng-repeat="player in $ctrl.playersForwards">
+									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<p>current time: {{player.cgtDisplay}}</p>
-										<p>total game: {{player.tgtDisplay}}</p>
+										<p>current time: {{$ctrl.displayTime( player.cgt )}}</p>
+										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
 						</div>
 						<div class="col-md-3 col-sm-3" style="border: 1px solid black">
-							<h3 class="text-center">Midfield</h3>
+							<h3 class="text-center">Midfield <button class="btn btn-default" ng-click="$ctrl.addMidfielderClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
 							<div class="row">
-								<div ng-repeat="player in $ctrl.teamList | filter: {pos:'MID'} | orderBy: 'rml'">
-									<div class="col-md-12" ng-class="player.selected ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.name );">
+								<div ng-repeat="player in $ctrl.playersMidfielders">
+									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<p>current time: {{player.cgtDisplay}}</p>
-										<p>total game: {{player.tgtDisplay}}</p>
+										<p>current time: {{$ctrl.displayTime( player.cgt )}}</p>
+										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
 						</div>
 						<div class="col-md-3 col-sm-3" style="border: 1px solid black">
-							<h3 class="text-center">Defence</h3>
+							<h3 class="text-center">Defence <button class="btn btn-default" ng-click="$ctrl.addDefenderClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
 							<div class="row">
-								<div ng-repeat="player in $ctrl.teamList | filter: {pos:'DEF'} | orderBy: 'rml'">
-									<!-- <div ng-if="player.pos == 'DEF'"> -->
-									<div class="col-md-12" ng-class="player.selected ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick(  player.name );">
+								<div ng-repeat="player in $ctrl.playersDefenders">
+									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<p>current time: {{player.cgtDisplay}}</p>
-										<p>total game: {{player.tgtDisplay}}</p>
+										<p>current time: {{$ctrl.displayTime( player.cgt )}}</p>
+										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
 									</div>
-									<!-- </div> -->
-									 <!-- end ng-if -->
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
 						</div>
 						<div class="col-md-3 col-sm-3" style="border: 1px solid black">
-							<h3 class="text-center">Goal Keeper</h3>
+							<h3 class="text-center">Goal Keeper <button class="btn btn-default" ng-click="$ctrl.addGoalKeeperClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
 							<div class="row">
-								<div ng-repeat="player in $ctrl.teamList | filter: {pos:'GK'} | orderBy: 'rml'">
-									<div ng-if="player.pos == 'GK'">
-										<div class="col-md-12" ng-class="player.selected ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.name );">
-											<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-											<p>current time: {{player.cgtDisplay}}</p>
-											<p>total game: {{player.tgtDisplay}}</p>
+								<div ng-repeat="player in $ctrl.playersGoalKeepers">
+									<!-- <div ng-if="player.pos == 'GK'"> -->
+									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
+										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
+										<p>current time: {{$ctrl.displayTime( player.cgt )}}</p>
+										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
 										</div>
-									</div> <!-- end ng-if -->
+									<!-- </div> end ng-if -->
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
 						</div>
 					</div> <!-- end Row -->
 					<div class="Row" style="border: 1px solid black">
 						<h3>Substitutes</h3>
-						<div ng-repeat="player in $ctrl.teamList">
-							<div ng-if="player.pos == 'BEN'">
-								<div class="col-md-2 col-sm-2" ng-class="player.selected ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.name );">
-									<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-									<p>current time: {{player.cbtDisplay}}</p>
-									<p>total bench  : {{player.tbtDisplay}}</p>								
-									<p>total game   : {{player.tgtDisplay}}</p>
-								</div>
+						<div ng-repeat="player in $ctrl.playersBench">
+							<div class="col-md-2 col-sm-2" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
+								<h4 class="text-center"><strong>{{ player.name }}</strong></h4>
+								<p>current time: {{$ctrl.displayTime( player.cbt ) }}</p>
+								<p>total bench  : {{$ctrl.displayTime( player.tbt ) }}</p>								
+								<p>total game   : {{$ctrl.displayTime( player.tgt ) }}</p>
 							</div>
 						</div>
 					</div> <!-- end Row -->
@@ -126,7 +125,6 @@
 					</div>
 					<!-- end Modal -->
 				</div> <!-- end Controller -->
-
 			<div> <!-- end Container -->
 		</div> <!-- end ng-app -->
 	</body>
