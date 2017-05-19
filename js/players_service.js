@@ -428,10 +428,10 @@
 			if ( id1 == id2 ) { return; }	// Do nothing, these are the same player
 
 			var id1_info = getPlayerPositionIndex( id1 );
-			console.log( 'player 1:' + teamList[ id1 ].name);
+			console.log( 'player 1:' id1 );
 			console.log( id1_info );
 			var id2_info = getPlayerPositionIndex( id2 );
-			console.log( 'player 2:' + teamList[ id2 ].name );
+			console.log( 'player 2:' id2 );
 			console.log( id2_info );
 			if ( id1_info && id2_info ) {
 				if ( id1_info.pos == 'ATT') { service.positionForwardList[ id1_info.index ] = id2; }	// Player 2 is now a forward
