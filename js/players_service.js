@@ -449,13 +449,25 @@
 			// Final step is to reset-timers if moving on or off the bench
 			if ( id1_info.pos == 'BEN') {
 				console.log( 'player 2 is now on the bench');
-				teamList[ id2 ].cgt = 0;
-				teamList[ id2 ].cbt = 0;
+				for ( var i = 0; i < teamList.length; i++ ) {
+					if ( teamList[ i ].id == id2 ) {
+						teamList[ i ].cgt = 0;
+						teamList[ i ].cbt = 0;
+					}
+				}
+				// teamList[ service.positionDefenceList[ id1_info.index ] ].cgt = 0;
+				// teamList[ service.positionDefenceList[ id1_info.index ] ].cbt = 0;
 			}
 			if ( id2_info.pos == 'BEN') {
 				console.log( 'player 1 is now on the bench');
-				teamList[ id1 ].cgt = 0;
-				teamList[ id1 ].cbt = 0;
+				for ( var i = 0; i < teamList.length; i++ ) {
+					if ( teamList[ i ].id == id1 ) {
+						teamList[ i ].cgt = 0;
+						teamList[ i ].cbt = 0;
+					}
+				}				
+				// teamList[ service.positionDefenceList[ id2_info.index ] ].cgt = 0;
+				// teamList[ service.positionDefenceList[ id2_info.index ] ].cbt = 0;
 			}
 		}
 
