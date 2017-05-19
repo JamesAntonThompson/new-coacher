@@ -159,6 +159,7 @@
 			service.positionForwardList = [];
 			service.positionMidList = [];
 			service.positionDefenceList = [];
+			service.positionGoalKeeperList = [];
 		}
 
 		function isOnBench( id ) {

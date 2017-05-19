@@ -14,11 +14,13 @@
 			DebugConsoleLog('gameTimer.$onInit()');
 			$ctrl.gameHalf = 1;					// Starts with the first half
 			$ctrl.gameStatus = '1st Half Setup';
-			$ctrl.gameLength = 5 * 60 * 1000;	// 25 minutes
+			$ctrl.gameLength = 25 * 60 * 1000;	// 25 minutes
 			$ctrl.gameRemaining = $ctrl.gameLength;
 			$ctrl.gameLengthMinutes = Math.floor( $ctrl.gameLength / 60000 );
 			$ctrl.gameLengthSeconds = Math.floor(( $ctrl.gameLength / 1000 ) % 60 );
-			$ctrl.gameTimeStart = new Date();
+			$ctrl.gameTimeStart = null;
+				// DebugConsoleLog( $ctrl.gameTimeStart );
+
 			$ctrl.timerStatus = 'off';
 			$ctrl.playersBench = Players.getBench();
 			$ctrl.playersForwards = Players.getForwards();
@@ -41,8 +43,20 @@
 		}
 
 		$ctrl.start = function() {
-			$timeout( $ctrl.onTimeout,1000 );
 			$ctrl.timerStatus = 'on';
+			if ( $ctrl.gameStatus == '1st Half Setup') {
+				console.log( 'here');
+				$ctrl.gameStatus = '1st Half';
+				$ctrl.gameTimeStart = new Date();
+				DebugConsoleLog( $ctrl.gameTimeStart );
+				$ctrl.gameRemaining = $ctrl.gameLength;
+			}
+			if ( $ctrl.gameStatus == '2nd Half Setup') {
+				$ctrl.gameStatus = '2nd Half';
+				$ctrl.gameTimeStart = new Date();
+				$ctrl.gameRemaining = $ctrl.gameLength;
+			}
+			$timeout( $ctrl.onTimeout,1000 );
 		}
 
 		$ctrl.stop = function() {
