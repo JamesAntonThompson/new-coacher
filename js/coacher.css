@@ -12,3 +12,6 @@ body { background-color: green;
 
 .unselected { border: 1px solid black;
 			  background-color: transparent; }
+
+.highlighted { background-color: white; }
+.unhighlighted { background-color: transparent; }

@@ -12,14 +12,12 @@
 
 		$ctrl.$onInit = function() {
 			DebugConsoleLog('gameTimer.$onInit()');
-			// $ctrl.gameHalf = 1;					// Starts with the first half
 			$ctrl.gameStatus = '1st Half Setup';
 			$ctrl.gameLength = 25 * 60 * 1000;	// 25 minutes
 			$ctrl.gameRemaining = $ctrl.gameLength;
 			$ctrl.gameLengthMinutes = Math.floor( $ctrl.gameLength / 60000 );
 			$ctrl.gameLengthSeconds = Math.floor(( $ctrl.gameLength / 1000 ) % 60 );
 			$ctrl.gameTimeStart = null;
-			// DebugConsoleLog( $ctrl.gameTimeStart );
 
 			$ctrl.timerStatus = 'off';
 			$ctrl.playersBench = Players.getBench();
@@ -156,6 +154,12 @@
 			$ctrl.click({ type: 'button', data: 'GK' });			
 		}
 
+		$ctrl.isLongestInPos = function( id, pos ) {
+			if ( pos == 'ATT' ) { return Players.isLongestForward( id ); }
+			if ( pos == 'BEN' ) { return Players.isLongestOnBench( id ); }
+			if ( pos == 'MID' ) { return Players.isLongestMidfield( id ); }
+			if ( pos == 'DEF' ) { return Players.isLongestDefender( id ); }
+		}
 
 		$ctrl.click = function( ref ) {
 			DebugConsoleLog( 'gameTimer.click()' );

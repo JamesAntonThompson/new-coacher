@@ -92,7 +92,25 @@
 			return service.positionForwardList.indexOf( id );
 		}
 
-		// Bench functions
+		service.isLongestForward = function( id ) {
+			var result = true;
+			var player = service.getById( id );
+			if ( player ) {
+				for ( var i = 0; i < service.positionForwardList.length; i++ ) {
+					var comp = service.getById( service.positionForwardList[ i ]);
+					if ( comp.cgt > player.cgt ) {
+						return false;
+					}
+				}
+			} else {
+				// Something went wrong
+				result = false;
+			}
+			return result;
+		}
+
+
+		///////////////////////////////////////////////// Bench functions
 		function addToBench( id ) {
 			DebugConsoleLog( 'Players.addToBench()');	
 			service.positionBenchList.push( id );
@@ -173,6 +191,22 @@
 			return service.positionBenchList.indexOf( id );
 		}
 
+		service.isLongestOnBench = function( id ) {
+			var result = true;
+			var player = service.getById( id );
+			if ( player ) {
+				for ( var i = 0; i < service.positionBenchList.length; i++ ) {
+					var comp = service.getById( service.positionBenchList[ i ]);
+					if ( comp.cbt > player.cbt ) {
+						return false;
+					}
+				}
+			} else {
+				// Something went wrong
+				result = false;
+			}
+			return result;
+		}
 
 		////////////////////////////////////////// MIDFIELD FUNCTIONS
 		function addToMidfield( id ) {
@@ -227,6 +261,23 @@
 		}
 
 
+		service.isLongestMidfield = function( id ) {
+			var result = true;
+			var player = service.getById( id );
+			if ( player ) {
+				for ( var i = 0; i < service.positionMidList.length; i++ ) {
+					var comp = service.getById( service.positionMidList[ i ]);
+					if ( comp.cgt > player.cgt ) {
+						return false;
+					}
+				}
+			} else {
+				// Something went wrong
+				result = false;
+			}
+			return result;
+		}
+
 		////////////////////////////////////////// DEFENDER FUNCTIONS
 		function addToDefence( id ) {
 			DebugConsoleLog( 'Players.addToDefence()');
@@ -279,6 +330,22 @@
 			return service.positionDefenceList.indexOf( id );
 		}
 
+		service.isLongestDefender = function( id ) {
+			var result = true;
+			var player = service.getById( id );
+			if ( player ) {
+				for ( var i = 0; i < service.positionDefenceList.length; i++ ) {
+					var comp = service.getById( service.positionDefenceList[ i ]);
+					if ( comp.cgt > player.cgt ) {
+						return false;
+					}
+				}
+			} else {
+				// Something went wrong
+				result = false;
+			}
+			return result;
+		}
 
 		////////////////////////////////////////// GOAL-KEEPER FUNCTIONS
 		function addGoalKeeper( id ) {
