@@ -13,7 +13,7 @@
 		$ctrl.$onInit = function() {
 			DebugConsoleLog('gameTimer.$onInit()');
 			$ctrl.gameStatus = '1st Half Setup';
-			$ctrl.gameLength = 1 * 60 * 1000;	// 25 minutes
+			$ctrl.gameLength = 25 * 60 * 1000;	// 25 minutes
 			$ctrl.gameRemaining = $ctrl.gameLength;
 			$ctrl.gameLengthMinutes = Math.floor( $ctrl.gameLength / 60000 );
 			$ctrl.gameLengthSeconds = Math.floor(( $ctrl.gameLength / 1000 ) % 60 );
