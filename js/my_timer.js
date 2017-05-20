@@ -19,7 +19,7 @@
 			$ctrl.gameLengthMinutes = Math.floor( $ctrl.gameLength / 60000 );
 			$ctrl.gameLengthSeconds = Math.floor(( $ctrl.gameLength / 1000 ) % 60 );
 			$ctrl.gameTimeStart = null;
-				// DebugConsoleLog( $ctrl.gameTimeStart );
+			// DebugConsoleLog( $ctrl.gameTimeStart );
 
 			$ctrl.timerStatus = 'off';
 			$ctrl.playersBench = Players.getBench();
@@ -27,6 +27,7 @@
 			$ctrl.playersMidfielders = Players.getMidfielders();
 			$ctrl.playersDefenders = Players.getDefenders();
 			$ctrl.playersGoalKeepers = Players.getGoalKeepers();
+			$ctrl.timeOfLastTick = null;
 			
 			$ctrl.prevClick = null;
 		};
@@ -36,7 +37,12 @@
 			$ctrl.gameRemaining = $ctrl.gameLength - (($ctrl.gameTimeStart - new Date()) * -1);
 			$ctrl.gameLengthMinutes = Math.floor( timeRemaining / 60000 );
 			$ctrl.gameLengthSeconds = Math.floor(( timeRemaining / 1000 ) % 60 );
-			Players.incrementTime( 1 );
+			if ( $ctrl.timeOfLastTick ) {
+				var increment = Math.round(((( $ctrl.timeOfLastTick - new Date()) / 1000) % 60) * -1);
+				// DebugConsoleLog( 'Increment: ' + increment );
+				Players.incrementTime( increment );
+			}
+			$ctrl.timeOfLastTick = new Date();
 			if ( $ctrl.timerStatus == 'on' ) {
 				var mytimeout = $timeout($ctrl.onTimeout, 1000);
 			}
