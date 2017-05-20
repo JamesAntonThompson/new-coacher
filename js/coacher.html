@@ -95,7 +95,7 @@
 					<div class="Row" style="border: 1px solid black">
 						<h3>Substitutes</h3>
 						<div ng-repeat="player in $ctrl.playersBench">
-							<div class="col-md-2 col-sm-2" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
+							<div class="col-md-3 col-sm-3" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 								<h4 class="text-center"><strong>{{ player.name }}</strong></h4>
 								<p>current time: {{$ctrl.displayTime( player.cbt ) }}</p>
 								<p>total bench  : {{$ctrl.displayTime( player.tbt ) }}</p>								
