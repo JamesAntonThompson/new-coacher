@@ -13,7 +13,7 @@
 		$ctrl.$onInit = function() {
 			DebugConsoleLog('gameTimer.$onInit()');
 			$ctrl.gameStatus = '1st Half Setup';
-			$ctrl.gameLength = 25 * 60 * 1000;	// 25 minutes
+			$ctrl.gameLength = 1 * 60 * 1000;	// 25 minutes
 			$ctrl.gameRemaining = $ctrl.gameLength;
 			$ctrl.gameLengthMinutes = Math.floor( $ctrl.gameLength / 60000 );
 			$ctrl.gameLengthSeconds = Math.floor(( $ctrl.gameLength / 1000 ) % 60 );
@@ -31,10 +31,12 @@
 		};
 
 		$ctrl.onTimeout = function() {
-			var timeRemaining = $ctrl.gameLength - (($ctrl.gameTimeStart - new Date()) * -1);
+			// var timeRemaining = $ctrl.gameLength - (($ctrl.gameTimeStart - new Date()) * -1);
 			$ctrl.gameRemaining = $ctrl.gameLength - (($ctrl.gameTimeStart - new Date()) * -1);
-			$ctrl.gameLengthMinutes = Math.floor( timeRemaining / 60000 );
-			$ctrl.gameLengthSeconds = Math.floor(( timeRemaining / 1000 ) % 60 );
+			if ( $ctrl.gameRemaining < 0 ) { $ctrl.gameRemaining = 0; }
+			// console.log( $ctrl.gameRemaining );
+			$ctrl.gameLengthMinutes = Math.floor( $ctrl.gameRemaining / 60000 );
+			$ctrl.gameLengthSeconds = Math.floor(( $ctrl.gameRemaining / 1000 ) % 60 );
 			if ( $ctrl.timeOfLastTick ) {
 				var increment = Math.round(((( $ctrl.timeOfLastTick - new Date()) / 1000) % 60) * -1);
 				// DebugConsoleLog( 'Increment: ' + increment );

@@ -9,7 +9,7 @@
 
 		// debugging switch
 		var runTests = false;
-		var debugging = true;
+		var debugging = false;
 		function DebugConsoleLog(msg) { if ( debugging == true ) { console.log(msg); }}
 
 
@@ -132,7 +132,7 @@
 			// DebugConsoleLog( 'Players.getBench()');
 			// sort the bench first
 			if ( service.positionBenchList ) {
-				console.log( 'sorting the bench');
+				// console.log( 'sorting the bench');
 				// service.positionBenchList.sort( function(a, b) { 
 					// console.log( a + ',' + b );
 					// return teamList[ a ].cbt - teamList[ b ].cbt; } );
