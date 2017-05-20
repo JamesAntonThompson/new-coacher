@@ -23,7 +23,7 @@ body { background-color: ForestGreen;
 	border-radius: 15px;
 	margin-top: 5px;
 	margin-right: 5px;
-	width: 180px;
+	width: 160px;
 }
 
 .unselected {
@@ -32,7 +32,7 @@ body { background-color: ForestGreen;
 	border-radius: 10px;
 	margin-top: 5px;
 	margin-right: 5px;
-	width: 180px;
+	width: 160px;
 }
 
 p { margin-bottom: 5px; }
