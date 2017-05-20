@@ -12,7 +12,7 @@
 
 		$ctrl.$onInit = function() {
 			DebugConsoleLog('gameTimer.$onInit()');
-			$ctrl.gameHalf = 1;					// Starts with the first half
+			// $ctrl.gameHalf = 1;					// Starts with the first half
 			$ctrl.gameStatus = '1st Half Setup';
 			$ctrl.gameLength = 25 * 60 * 1000;	// 25 minutes
 			$ctrl.gameRemaining = $ctrl.gameLength;
@@ -83,12 +83,14 @@
 			// Let's put all the players on the bench
 			Players.allToBench();
 			// Let's reset the clocks
-			if ( $ctrl.gameHalf == 1 ) {
+			if ( $ctrl.gameStatus == '1st Half' ) {
 				// It is the end of the 1st half.  Let's set up for the 2nd half
-				$ctrl.gameHalf = 2;
+				$ctrl.gameStatus = '2nd Half Setup';
+				// $ctrl.gameHalf = 2;
 				$ctrl.gameRemaining = $ctrl.gameLength;
 			} else {
 				// It is the end of the game
+				$ctrl.gameStatus = 'Game Over';
 				$ctrl.gameRemaining = 0;				
 			}
 			// Final step - refresh everyting
@@ -188,7 +190,6 @@
 					}
 				}
 				$ctrl.prevClick = null;
-
 			}
 			// Final step - refresh everyting
 			$ctrl.playersBench = Players.getBench();

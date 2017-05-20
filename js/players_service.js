@@ -67,7 +67,7 @@
 		}
 
 		service.getForwards = function() {
-			DebugConsoleLog('Players.getForwards()');
+			// DebugConsoleLog('Players.getForwards()');
 			var result = [];
 			var len = service.positionForwardList.length;
 			var j = 0;
@@ -86,9 +86,6 @@
 		function isForward( id ) {
 			// console.log( )
 			return ( indexForward( id ) != -1 );
-			// var i = 0;
-			// while ( i < service.positionForwardList.length && service.positionForwardList[ i ] != id ) { i++; }
-			// return ( i < service.positionForwardList.length );
 		}
 
 		function indexForward( id ) {
@@ -104,7 +101,6 @@
 		function removeFromBench( id ) {
 			DebugConsoleLog( 'Players.removeFromBench( ' + id + ' )');
 			var id_index = service.positionBenchList.indexOf( id );
-			// console.log( id_index );
 			if ( id_index != -1 ) {
 				if ( id_index == 0 ) {
 					service.positionBenchList.shift();
@@ -115,7 +111,7 @@
 		}
 
 		service.getBench = function() {
-			DebugConsoleLog( 'Players.getBench()');
+			// DebugConsoleLog( 'Players.getBench()');
 			// sort the bench first
 			if ( service.positionBenchList ) {
 				console.log( 'sorting the bench');
@@ -153,7 +149,12 @@
 			// Add everyone to the bench
 			service.positionBenchList = [];
 			for ( var i = 0; i < teamList.length; i++ ) {
-				service.positionBenchList.push( teamList[ i ].id );
+				if ( !isOnBench( teamList[ i ].id )) {
+					// The player is not already on the bench
+					teamList[i].cgt = 0;
+					teamList[i].cbt = 0;
+					service.positionBenchList.push( teamList[ i ].id );
+				}
 			}
 			// clear the other positions
 			service.positionForwardList = [];
@@ -201,7 +202,7 @@
 		}
 
 		service.getMidfielders = function() {
-			DebugConsoleLog('Players.getMidfielders()');
+			// DebugConsoleLog('Players.getMidfielders()');
 			var result = [];
 			var len = service.positionMidList.length;
 			var j = 0;
@@ -254,7 +255,7 @@
 		}
 
 		service.getDefenders = function() {
-			DebugConsoleLog('Players.getDefenders()');
+			// DebugConsoleLog('Players.getDefenders()');
 			var result = [];
 			var len = service.positionDefenceList.length;
 			var j = 0;
@@ -271,7 +272,7 @@
 		}
 
 		function isDefender( id ) {
-			return ( indexMidfielder( id ) != -1 );
+			return ( indexDefender( id ) != -1 );
 		}
 
 		function indexDefender( id ) {
@@ -307,7 +308,7 @@
 		}
 
 		service.getGoalKeepers = function() {
-			DebugConsoleLog('Players.getGoalKeepers()');
+			// DebugConsoleLog('Players.getGoalKeepers()');
 			var result = [];
 			var len = service.positionGoalKeeperList.length;
 			var j = 0;
@@ -324,7 +325,7 @@
 		}
 
 		function isGoalKeeper( id ) {
-			return ( indexMidfielder( id ) != -1 );
+			return ( indexGoalKeeper( id ) != -1 );
 		}
 
 		function indexGoalKeeper( id ) {
@@ -349,7 +350,6 @@
 			DebugConsoleLog('Players.movePlayerToMidfield()');
 			// First, let's find where the player currently is
 			if ( isMidfielder( id )) { return; }		// Do nothing, the player is already in a forward position
-			// console.log( 'here');
 			if ( isOnBench( id )) { removeFromBench( id ); }				// The player is currently on the bench
 			if ( isForward( id )) { removeFromForwards( id ); }				// The player is currently a forward
 			if ( isGoalKeeper( id )) { removeFromGoalKeeper( id ); }		// The player is currently a goal keeper
@@ -386,6 +386,7 @@
 			if ( isOnBench( id )) { removeFromBench( id ); }				// The player is currently on the bench
 			if ( isForward( id )) { removeFromForwards( id ); }				// The player is currently a forward
 			if ( isMidfielder( id )) { removeFromMidfield( id ); }			// The player is currently a midfielder
+			if ( isDefender( id )) { removeFromDefence( id ); }				// The player is currently a defender
 			addGoalKeeper( id );
 		}
 
@@ -429,11 +430,11 @@
 			if ( id1 == id2 ) { return; }	// Do nothing, these are the same player
 
 			var id1_info = getPlayerPositionIndex( id1 );
-			console.log( 'player 1:' + id1 );
-			console.log( id1_info );
+			// console.log( 'player 1:' + id1 );
+			// console.log( id1_info );
 			var id2_info = getPlayerPositionIndex( id2 );
-			console.log( 'player 2:' + id2 );
-			console.log( id2_info );
+			// console.log( 'player 2:' + id2 );
+			// console.log( id2_info );
 			if ( id1_info && id2_info ) {
 				if ( id1_info.pos == 'ATT') { service.positionForwardList[ id1_info.index ] = id2; }	// Player 2 is now a forward
 				if ( id1_info.pos == 'MID') { service.positionMidList[ id1_info.index ] = id2; }		// Player 2 is now in midfield
@@ -449,7 +450,7 @@
 			}
 			// Final step is to reset-timers if moving on or off the bench
 			if ( id1_info.pos == 'BEN') {
-				console.log( 'player 2 is now on the bench');
+				// console.log( 'player 2 is now on the bench');
 				for ( var i = 0; i < teamList.length; i++ ) {
 					if ( teamList[ i ].id == id2 ) {
 						teamList[ i ].cgt = 0;
@@ -460,7 +461,7 @@
 				// teamList[ service.positionDefenceList[ id1_info.index ] ].cbt = 0;
 			}
 			if ( id2_info.pos == 'BEN') {
-				console.log( 'player 1 is now on the bench');
+				// console.log( 'player 1 is now on the bench');
 				for ( var i = 0; i < teamList.length; i++ ) {
 					if ( teamList[ i ].id == id1 ) {
 						teamList[ i ].cgt = 0;
