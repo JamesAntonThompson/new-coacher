@@ -15,6 +15,8 @@ body { background-color: ForestGreen;
 	border-radius: 10px;
 	margin-left: -15px;
 	width: 180px;
+	color: black;
+	background-color: white;
 }
 
 .selected { 
@@ -23,15 +25,17 @@ body { background-color: ForestGreen;
 	border-radius: 15px;
 	margin-top: 5px;
 	margin-right: 5px;
+	color: black;
 	width: 160px;
 }
 
 .unselected {
 	border: 1px solid #333;
-	background-color: transparent; 
+	background-color: white; 
 	border-radius: 10px;
 	margin-top: 5px;
 	margin-right: 5px;
+	color: black;
 	width: 160px;
 }
 
