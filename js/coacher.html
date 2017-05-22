@@ -40,7 +40,7 @@
 					</div> <!-- end Row -->
 					<div class="row">
 						<div class="col-md-3 col-sm-3">
-							<h3 class="header text-center">Forwards <button class="btn btn-default" ng-click="$ctrl.addForwardClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
+							<h3 class="header text-center">Forwards <button class="btn btn-default" ng-click="$ctrl.addToPosition( 'ATT' )"><span class="glyphicon glyphicon-plus"></span></button></h3>
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersForwards">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
@@ -52,7 +52,7 @@
 							</div> <!-- end ng-row -->
 						</div>
 						<div class="col-md-3 col-sm-3">
-							<h3 class="header text-center">Midfield <button class="btn btn-default" ng-click="$ctrl.addMidfielderClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
+							<h3 class="header text-center">Midfield <button class="btn btn-default" ng-click="$ctrl.addToPosition( 'MID' )"><span class="glyphicon glyphicon-plus"></span></button></h3>
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersMidfielders">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
@@ -64,7 +64,7 @@
 							</div> <!-- end ng-row -->
 						</div>
 						<div class="col-md-3 col-sm-3">
-							<h3 class="header text-center">Defence <button class="btn btn-default" ng-click="$ctrl.addDefenderClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
+							<h3 class="header text-center">Defence <button class="btn btn-default" ng-click="$ctrl.addToPosition( 'DEF' )"><span class="glyphicon glyphicon-plus"></span></button></h3>
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersDefenders">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
@@ -76,7 +76,7 @@
 							</div> <!-- end ng-row -->
 						</div>
 						<div class="col-md-3 col-sm-3">
-							<h3 class="header text-center">Keeper <button class="btn btn-default" ng-click="$ctrl.addGoalKeeperClick()"><span class="glyphicon glyphicon-plus"></span></button></h3>
+							<h3 class="header text-center">Keeper <button class="btn btn-default" ng-click="$ctrl.addToPosition( 'GK' )"><span class="glyphicon glyphicon-plus"></span></button></h3>
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersGoalKeepers">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">

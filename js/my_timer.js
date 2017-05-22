@@ -26,7 +26,6 @@
 			$ctrl.playersDefenders = Players.getDefenders();
 			$ctrl.playersGoalKeepers = Players.getGoalKeepers();
 			$ctrl.timeOfLastTick = null;
-			
 			$ctrl.prevClick = null;
 		};
 
@@ -72,7 +71,26 @@
     	$ctrl.displayTime = function( time ) {
     		return displayMinutes(time) + ':' + displaySeconds(time);
     	}
-    	
+
+		var displaySeconds = function( time ) {
+			var seconds = Math.floor( time % 60 );
+			// var result = -1
+			if ( seconds < 10 ) {
+				return '0' + seconds.toString();
+			} else {
+				return seconds.toString();
+			}
+		}
+
+		var displayMinutes = function( time ) {
+			var minutes = Math.floor( time / 60 );
+			if ( minutes < 10 ) {
+				return '0' + minutes.toString();
+			} else {
+				return minutes.toString();
+			}
+		}
+
 		$ctrl.end = function() {
 			// Send all players to the bench
 			if ( $ctrl.gameHalf == 1 ) {
@@ -107,24 +125,7 @@
 			$ctrl.playersGoalKeepers = Players.getGoalKeepers();
 		}
 
-		var displaySeconds = function( time ) {
-			var seconds = Math.floor( time % 60 );
-			// var result = -1
-			if ( seconds < 10 ) {
-				return '0' + seconds.toString();
-			} else {
-				return seconds.toString();
-			}
-		}
 
-		var displayMinutes = function( time ) {
-			var minutes = Math.floor( time / 60 );
-			if ( minutes < 10 ) {
-				return '0' + minutes.toString();
-			} else {
-				return minutes.toString();
-			}
-		}
 
 		$ctrl.isPlayerSelected = function( id ) {
 			// console.log( id );
@@ -135,26 +136,29 @@
 			}
 		}
 
-		$ctrl.addForwardClick = function() {
-			DebugConsoleLog( 'gameTimer.addForwardClick()' );
-			$ctrl.click({ type: 'button', data: 'ATT' });
+		$ctrl.addToPosition = function( pos ) {
+			DebugConsoleLog( 'gameTimer.addToPosition( ' + pos + ')' );
+			$ctrl.click({ type: 'button', data: pos });
 		}
+		// $ctrl.addForwardClick = function() {
+		// 	DebugConsoleLog( 'gameTimer.addForwardClick()' );
+		// 	$ctrl.click({ type: 'button', data: 'ATT' });
+		// }
 
+		// $ctrl.addMidfielderClick = function() {
+		// 	DebugConsoleLog( 'gameTimer.addMidfielderClick()' );
+		// 	$ctrl.click({ type: 'button', data: 'MID' });
+		// }
 
-		$ctrl.addMidfielderClick = function() {
-			DebugConsoleLog( 'gameTimer.addMidfielderClick()' );
-			$ctrl.click({ type: 'button', data: 'MID' });
-		}
+		// $ctrl.addDefenderClick = function() {
+		// 	DebugConsoleLog( 'gameTimer.addDefenderClick()' );
+		// 	$ctrl.click({ type: 'button', data: 'DEF' });			
+		// }
 
-		$ctrl.addDefenderClick = function() {
-			DebugConsoleLog( 'gameTimer.addDefenderClick()' );
-			$ctrl.click({ type: 'button', data: 'DEF' });			
-		}
-
-		$ctrl.addGoalKeeperClick = function() {
-			DebugConsoleLog( 'gameTimer.addGoalKeeperClick()' );
-			$ctrl.click({ type: 'button', data: 'GK' });			
-		}
+		// $ctrl.addGoalKeeperClick = function() {
+		// 	DebugConsoleLog( 'gameTimer.addGoalKeeperClick()' );
+		// 	$ctrl.click({ type: 'button', data: 'GK' });			
+		// }
 
 		$ctrl.isLongestInPos = function( id, pos ) {
 			if ( pos == 'ATT' ) { return Players.isLongestForward( id ); }

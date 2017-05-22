@@ -17,7 +17,6 @@
 
 		var teamList = [];
 
-		
 		DebugConsoleLog('Players().$onInit()');
 		teamList = [{ id: 1, name: 'Elvie', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
 					{ id: 2, name: 'Sienna', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
@@ -39,41 +38,29 @@
 		service.positionDefenceList = [];
 		service.positionGoalKeeperList = [];
 
-		// Forwards functions
-		function addToForward( id ) {
-			DebugConsoleLog( 'Players.addToForward()');
-			service.positionForwardList.push( id );
+		////////////////////////////// GENERIC FUNCTIONS /////////////////////////
+		function addToList( id, list ) {
+			list.push( id );
 		}
 
-		service.swapForwards = function( id1, id2 ) {
-			var id1_index = service.positionForwardList.indexOf( id1 );
-			var id2_index = service.positionForwardList.indexOf( id2 );
-			if ( id1_index && id2_index ) {
-				service.positionForwardList[ id1_index ] = id2;
-				service.positionForwardList[ id2_index ] = id1;
-			}
-		}
-
-		function removeFromForwards( id ) {
-			DebugConsoleLog( 'Players.removeFromForwards( ' + id + ' )');
-			var id_index = service.positionForwardList.indexOf( id );
+		function removeFromList( id, list ) {
+			var id_index = list.indexOf( id );
 			if ( id_index != -1 ) {
 				if ( id_index == 0 ) {
-					service.positionForwardList.shift();
+					list.shift();
 				} else { 
-					service.positionForwardList.splice( id_index, 1 );
+					list.splice( id_index, 1 );
 				}
-			}
+			}			
 		}
 
-		service.getForwards = function() {
-			// DebugConsoleLog('Players.getForwards()');
+		function getList( list ) {
 			var result = [];
-			var len = service.positionForwardList.length;
+			var len = list.length;
 			var j = 0;
 			for ( var i = 0; i < len; i++ ) {
 				j = 0;
-				while ( j < teamList.length && teamList[ j ].id != service.positionForwardList[ i ]) { j++; }
+				while ( j < teamList.length && teamList[ j ].id != list[ i ]) { j++; }
 				if ( j >= teamList.length ) { 
 					return [];			// Abort, something went wrong
 				} else {
@@ -83,23 +70,20 @@
 			return result;
 		}
 
-		function isForward( id ) {
-			// console.log( )
-			return ( indexForward( id ) != -1 );
-		}
-
-		function indexForward( id ) {
-			return service.positionForwardList.indexOf( id );
-		}
-
-		service.isLongestForward = function( id ) {
+		function isLongest( id, list, pos ) {
 			var result = true;
 			var player = service.getById( id );
 			if ( player ) {
-				for ( var i = 0; i < service.positionForwardList.length; i++ ) {
-					var comp = service.getById( service.positionForwardList[ i ]);
-					if ( comp.cgt > player.cgt ) {
-						return false;
+				for ( var i = 0; i < list.length; i++ ) {
+					var comp = service.getById( list[ i ]);
+					if ( pos == 'BEN') {
+						if ( comp.cbt > player.cbt ) {
+							return false;
+						}
+					} else {
+						if ( comp.cgt > player.cgt ) {
+							return false;
+						}
 					}
 				}
 			} else {
@@ -109,23 +93,46 @@
 			return result;
 		}
 
+		////////////////////////////////// Forwards functions///////////////////////
+		function addToForward( id ) {
+			DebugConsoleLog( 'Players.addToForward()');
+			addToList( id, service.positionForwardList );
+			// service.positionForwardList.push( id );
+		}
+
+		function removeFromForwards( id ) {
+			DebugConsoleLog( 'Players.removeFromForwards( ' + id + ' )');
+			removeFromList( id, service.positionForwardList );
+		}
+
+		service.getForwards = function() {
+			DebugConsoleLog('Players.getForwards()');
+			return getList( service.positionForwardList );
+		}
+
+		function isForward( id ) {
+			return ( indexForward( id ) != -1 );
+		}
+
+		function indexForward( id ) {
+			return service.positionForwardList.indexOf( id );
+		}
+
+		service.isLongestForward = function( id ) {
+			return isLongest( id, service.positionForwardList, 'ATT');
+		}
+
 
 		///////////////////////////////////////////////// Bench functions
 		function addToBench( id ) {
 			DebugConsoleLog( 'Players.addToBench()');	
-			service.positionBenchList.push( id );
+			addToList( id, service.positionBenchList );
+			// service.positionBenchList.push( id );
 		}
 
 		function removeFromBench( id ) {
 			DebugConsoleLog( 'Players.removeFromBench( ' + id + ' )');
-			var id_index = service.positionBenchList.indexOf( id );
-			if ( id_index != -1 ) {
-				if ( id_index == 0 ) {
-					service.positionBenchList.shift();
-				} else { 
-					service.positionBenchList.splice( id_index, 1 );
-				}
-			}
+			removeFromList( id, service.positionBenchList );
 		}
 
 		service.getBench = function() {
@@ -192,20 +199,7 @@
 		}
 
 		service.isLongestOnBench = function( id ) {
-			var result = true;
-			var player = service.getById( id );
-			if ( player ) {
-				for ( var i = 0; i < service.positionBenchList.length; i++ ) {
-					var comp = service.getById( service.positionBenchList[ i ]);
-					if ( comp.cbt > player.cbt ) {
-						return false;
-					}
-				}
-			} else {
-				// Something went wrong
-				result = false;
-			}
-			return result;
+			return isLongest( id, service.positionBenchList, 'BEN');
 		}
 
 		////////////////////////////////////////// MIDFIELD FUNCTIONS
@@ -214,42 +208,14 @@
 			service.positionMidList.push( id );
 		}
 
-		service.swapMidfielders = function( id1, id2 ) {
-			var id1_index = service.positionMidList.indexOf( id1 );
-			var id2_index = service.positionMidList.indexOf( id2 );
-			if ( id1_index && id2_index ) {
-				service.positionMidList[ id1_index ] = id2;
-				service.positionMidList[ id2_index ] = id1;
-			}
-		}
-
 		function removeFromMidfield( id ) {
 			DebugConsoleLog( 'Players.removeFromMidfield( ' + id + ' )');
-			var id_index = service.positionMidList.indexOf( id );
-			if ( id_index != -1 ) {
-				if ( id_index == 0 ) {
-					service.positionMidList.shift();
-				} else { 
-					service.positionMidList.splice( id_index, 1 );
-				}
-			}
+			removeFromList( id, service.positionMidList );
 		}
 
 		service.getMidfielders = function() {
-			// DebugConsoleLog('Players.getMidfielders()');
-			var result = [];
-			var len = service.positionMidList.length;
-			var j = 0;
-			for ( var i = 0; i < len; i++ ) {
-				j = 0;
-				while ( j < teamList.length && teamList[ j ].id != service.positionMidList[ i ]) { j++; }
-				if ( j >= teamList.length ) { 
-					return [];			// Abort, something went wrong
-				} else {
-					result.push(teamList[ j ]);
-				}
-			}
-			return result;
+			DebugConsoleLog('Players.getMidfielders()');
+			return getList( service.positionMidList );
 		}
 
 		function isMidfielder( id ) {
@@ -262,20 +228,7 @@
 
 
 		service.isLongestMidfield = function( id ) {
-			var result = true;
-			var player = service.getById( id );
-			if ( player ) {
-				for ( var i = 0; i < service.positionMidList.length; i++ ) {
-					var comp = service.getById( service.positionMidList[ i ]);
-					if ( comp.cgt > player.cgt ) {
-						return false;
-					}
-				}
-			} else {
-				// Something went wrong
-				result = false;
-			}
-			return result;
+			return isLongest( id, service.positionMidList, 'MID');
 		}
 
 		////////////////////////////////////////// DEFENDER FUNCTIONS
@@ -284,42 +237,14 @@
 			service.positionDefenceList.push( id );
 		}
 
-		service.swapDefenders = function( id1, id2 ) {
-			var id1_index = service.positionDefenceList.indexOf( id1 );
-			var id2_index = service.positionDefenceList.indexOf( id2 );
-			if ( id1_index && id2_index ) {
-				service.positionDefenceList[ id1_index ] = id2;
-				service.positionDefenceList[ id2_index ] = id1;
-			}
-		}
-
 		function removeFromDefence( id ) {
 			DebugConsoleLog( 'Players.removeFromDefence( ' + id + ' )');
-			var id_index = service.positionDefenceList.indexOf( id );
-			if ( id_index != -1 ) {
-				if ( id_index == 0 ) {
-					service.positionDefenceList.shift();
-				} else { 
-					service.positionDefenceList.splice( id_index, 1 );
-				}
-			}
+			removeFromList( id, service.positionDefenceList );
 		}
 
 		service.getDefenders = function() {
-			// DebugConsoleLog('Players.getDefenders()');
-			var result = [];
-			var len = service.positionDefenceList.length;
-			var j = 0;
-			for ( var i = 0; i < len; i++ ) {
-				j = 0;
-				while ( j < teamList.length && teamList[ j ].id != service.positionDefenceList[ i ]) { j++; }
-				if ( j >= teamList.length ) { 
-					return [];			// Abort, something went wrong
-				} else {
-					result.push(teamList[ j ]);
-				}
-			}
-			return result;
+			DebugConsoleLog('Players.getDefenders()');
+			return getList( service.positionDefenceList );
 		}
 
 		function isDefender( id ) {
@@ -331,20 +256,7 @@
 		}
 
 		service.isLongestDefender = function( id ) {
-			var result = true;
-			var player = service.getById( id );
-			if ( player ) {
-				for ( var i = 0; i < service.positionDefenceList.length; i++ ) {
-					var comp = service.getById( service.positionDefenceList[ i ]);
-					if ( comp.cgt > player.cgt ) {
-						return false;
-					}
-				}
-			} else {
-				// Something went wrong
-				result = false;
-			}
-			return result;
+			return isLongest( id, service.positionDefenceList, 'DEF');
 		}
 
 		////////////////////////////////////////// GOAL-KEEPER FUNCTIONS
@@ -353,42 +265,14 @@
 			service.positionGoalKeeperList.push( id );
 		}
 
-		service.swapGoalKeepers = function( id1, id2 ) {
-			var id1_index = service.positionGoalKeeperList.indexOf( id1 );
-			var id2_index = service.positionGoalKeeperList.indexOf( id2 );
-			if ( id1_index && id2_index ) {
-				service.positionGoalKeeperList[ id1_index ] = id2;
-				service.positionGoalKeeperList[ id2_index ] = id1;
-			}
-		}
-
 		function removeFromGoalKeeper( id ) {
 			DebugConsoleLog( 'Players.removeFromGoalKeeper( ' + id + ' )');
-			var id_index = service.positionGoalKeeperList.indexOf( id );
-			if ( id_index != -1 ) {
-				if ( id_index == 0 ) {
-					service.positionGoalKeeperList.shift();
-				} else { 
-					service.positionGoalKeeperList.splice( id_index, 1 );
-				}
-			}
+			removeFromList( id, service.positionGoalKeeperList );
 		}
 
 		service.getGoalKeepers = function() {
-			// DebugConsoleLog('Players.getGoalKeepers()');
-			var result = [];
-			var len = service.positionGoalKeeperList.length;
-			var j = 0;
-			for ( var i = 0; i < len; i++ ) {
-				j = 0;
-				while ( j < teamList.length && teamList[ j ].id != service.positionGoalKeeperList[ i ]) { j++; }
-				if ( j >= teamList.length ) { 
-					return [];			// Abort, something went wrong
-				} else {
-					result.push(teamList[ j ]);
-				}
-			}
-			return result;
+			DebugConsoleLog('Players.getGoalKeepers()');
+			return getList( service.positionGoalKeeperList );
 		}
 
 		function isGoalKeeper( id ) {
@@ -398,9 +282,6 @@
 		function indexGoalKeeper( id ) {
 			return service.positionGoalKeeperList.indexOf( id );
 		}
-
-
-
 
 		service.movePlayerToForward = function( id ) {
 			DebugConsoleLog('Players.movePlayerToForward(' + id + ')');
@@ -594,7 +475,7 @@
 					return teamList[ i ];
 				}
 			}
-			return null;			
+			return null;
 		}
 
 		service.getByName = function( name ) {
