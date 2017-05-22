@@ -23,21 +23,35 @@
 		<div ng-app="coacher">
 			<div class="container">
 				<div ng-controller="gameTimer as $ctrl">
-					<div class="row">
-						<div>
-							<h1 class="col-md-3 col-sm-3">Coacher</h1>
-							<h4 class="col-md-3 col-sm-3">{{$ctrl.gameStatus}}</h4>
+					<nav class="navbar navbar-default">
+						<div class="container-fluid">
+							<div class="navbar-header">
+								<a class="navbar-brand" href="#"><h2>Coacher</h2></a>
+							</div>
+							<!-- <h1 class="col-md-3 col-sm-3 navbar navbar-brand">Coacher</h1> -->
+							<ul class="nav navbar-nav">
+								<li><a href="#"><h2>{{$ctrl.gameStatus}}</h2></a></li>
+								<li><a href="#"><h2>{{$ctrl.gameRemaining | date:'mm:ss'}}</h2></a></li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right"> 
+								<li><a ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()"><h2><span class="glyphicon glyphicon-play"></span> Play</h2></a></li>
+								<li><a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.start()"><h2><span class="glyphicon glyphicon-pause"></span> Pause</h2></a></li>
+								<li><a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.start()"><h2><span class="glyphicon glyphicon-stop"></span> End</h2></a></li>
+							</ul>
+						</div>
+					</nav>
+					<!-- <div class="row"> -->
+						<!-- <div class="navbar navbar-default"> -->
 							<!-- <h1 class="col-md-3">{{$ctrl.gameLengthMinutes}}:{{$ctrl.gameLengthSeconds}}</h1> -->
-							<h1 class="col-md-2 col-sm-2">{{$ctrl.gameRemaining | date:'mm:ss'}}</h1>
-							<div class="col-md-2 col-sm-2">
-								<button ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()">Start</button>
+
+<!-- 							<div class="col-md-2 col-sm-2">
 								<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()">Pause</button>
 							</div>
 							<div class="col-md-2 col-sm-2">
 								<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()">End</button>
-							</div>
-						</div>
-					</div> <!-- end Row -->
+							</div> -->
+						<!-- </div> -->
+					<!-- </div> end Row -->
 					<div class="row">
 						<div class="col-md-3 col-sm-3">
 							<h3 class="header text-center" ng-class="$ctrl.isButtonSelected('ATT') ? 'selected' : 'unselected'" ng-click="$ctrl.addToPosition( 'ATT' )">Forwards</h3>
@@ -46,6 +60,7 @@
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
 										<p ng-class="$ctrl.isLongestInPos(player.id, 'ATT') ? 'highlighted' : 'unhighlighted'">current time: {{$ctrl.displayTime( player.cgt )}}</p>
+										<!-- <p>total game: {{$ctrl.displayTime( player.tgt )}}</p> -->
 										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
