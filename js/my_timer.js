@@ -30,15 +30,14 @@
 		};
 
 		$ctrl.onTimeout = function() {
-			// var timeRemaining = $ctrl.gameLength - (($ctrl.gameTimeStart - new Date()) * -1);
 			$ctrl.gameRemaining = $ctrl.gameLength - (($ctrl.gameTimeStart - new Date()) * -1);
-			if ( $ctrl.gameRemaining < 0 ) { $ctrl.gameRemaining = 0; }
-			// console.log( $ctrl.gameRemaining );
+			if ( $ctrl.gameRemaining < 0 ) { 
+				$ctrl.gameRemaining = 0;
+			}
 			$ctrl.gameLengthMinutes = Math.floor( $ctrl.gameRemaining / 60000 );
 			$ctrl.gameLengthSeconds = Math.floor(( $ctrl.gameRemaining / 1000 ) % 60 );
 			if ( $ctrl.timeOfLastTick ) {
 				var increment = Math.round(((( $ctrl.timeOfLastTick - new Date()) / 1000) % 60) * -1);
-				// DebugConsoleLog( 'Increment: ' + increment );
 				Players.incrementTime( increment );
 			}
 			$ctrl.timeOfLastTick = new Date();
@@ -126,39 +125,23 @@
 		}
 
 
+		$ctrl.isButtonSelected = function( pos ) {
+			return ( $ctrl.prevClick && $ctrl.prevClick[ 0 ].data == pos );
+		}
 
 		$ctrl.isPlayerSelected = function( id ) {
-			// console.log( id );
-			if ( $ctrl.prevClick && $ctrl.prevClick[ 0 ].data.id == id ) { 
-				return true;
-			} else {
-				return false;
-			}
+			return ( $ctrl.prevClick && $ctrl.prevClick[ 0 ].data.id == id );
+			// if ( $ctrl.prevClick && $ctrl.prevClick[ 0 ].data.id == id ) { 
+			// 	return true;
+			// } else {
+			// 	return false;
+			// }
 		}
 
 		$ctrl.addToPosition = function( pos ) {
 			DebugConsoleLog( 'gameTimer.addToPosition( ' + pos + ')' );
 			$ctrl.click({ type: 'button', data: pos });
 		}
-		// $ctrl.addForwardClick = function() {
-		// 	DebugConsoleLog( 'gameTimer.addForwardClick()' );
-		// 	$ctrl.click({ type: 'button', data: 'ATT' });
-		// }
-
-		// $ctrl.addMidfielderClick = function() {
-		// 	DebugConsoleLog( 'gameTimer.addMidfielderClick()' );
-		// 	$ctrl.click({ type: 'button', data: 'MID' });
-		// }
-
-		// $ctrl.addDefenderClick = function() {
-		// 	DebugConsoleLog( 'gameTimer.addDefenderClick()' );
-		// 	$ctrl.click({ type: 'button', data: 'DEF' });			
-		// }
-
-		// $ctrl.addGoalKeeperClick = function() {
-		// 	DebugConsoleLog( 'gameTimer.addGoalKeeperClick()' );
-		// 	$ctrl.click({ type: 'button', data: 'GK' });			
-		// }
 
 		$ctrl.isLongestInPos = function( id, pos ) {
 			if ( pos == 'ATT' ) { return Players.isLongestForward( id ); }
@@ -180,11 +163,9 @@
 					// The new click is a position button
 					if ( $ctrl.prevClick[ 0 ].type == 'button' ) {
 						// A new click is a position button, but so is the previous click, so do nothing
-						// console.log( 'here 2');
 						$ctrl.prevClick = null;
 					} else {
 						// The new click is a position button, and the previous click was a player button, so move the player to the position
-						// console.log('here');
 						if ( ref.data == 'ATT' ) { Players.movePlayerToForward( $ctrl.prevClick[ 0 ].data.id ); }
 						if ( ref.data == 'MID' ) { Players.movePlayerToMidfield( $ctrl.prevClick[ 0 ].data.id ); }
 						if ( ref.data == 'BEN' ) { Players.movePlayerToBench( $ctrl.prevClick[ 0 ].data.id ); }

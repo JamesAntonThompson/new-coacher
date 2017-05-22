@@ -19,10 +19,24 @@ body { background-color: ForestGreen;
 	background-color: white;
 }
 
+.subsheader {
+	border: 1px solid #333;
+	/*margin-top: 10px;*/
+	/*margin-bottom: 10px;*/
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 10px;
+	margin-left: -15px;
+	/*width: 180px;*/
+	color: black;
+	text-align: center;
+	background-color: white;
+}
+
 .selected { 
 	border: 1px solid #333;
 	background-color: black; 
-	border-radius: 15px;
+	border-radius: 10px;
 	margin-top: 5px;
 	margin-right: 5px;
 	color: white;
