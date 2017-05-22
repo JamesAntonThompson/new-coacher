@@ -26,32 +26,33 @@
 					<nav class="navbar navbar-default">
 						<div class="container-fluid">
 							<div class="navbar-header">
-								<a class="navbar-brand" href="#"><h2>Coacher</h2></a>
+								<a class="navbar-brand" style="font-size: 16pt; color: black;" href="#">Coacher</a>
 							</div>
-							<!-- <h1 class="col-md-3 col-sm-3 navbar navbar-brand">Coacher</h1> -->
 							<ul class="nav navbar-nav">
-								<li><a href="#"><h2>{{$ctrl.gameStatus}}</h2></a></li>
-								<li><a href="#"><h2>{{$ctrl.gameRemaining | date:'mm:ss'}}</h2></a></li>
+								<li><a  style="font-size: 16pt; color: black;" href="#">{{$ctrl.gameStatus}}</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right"> 
-								<li><a ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()"><h2><span class="glyphicon glyphicon-play"></span> Play</h2></a></li>
-								<li><a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.start()"><h2><span class="glyphicon glyphicon-pause"></span> Pause</h2></a></li>
-								<li><a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.start()"><h2><span class="glyphicon glyphicon-stop"></span> End</h2></a></li>
+								<li>
+									<a href="#" style="font-size: 32pt; color: black;"><strong>{{$ctrl.gameRemaining | date:'mm:ss'}}</strong></a>
+								</li>
+								<li>
+									<a ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()" style="font-size: 16pt; color: black;">
+										<strong><span class="glyphicon glyphicon-play"></span> Play</strong>
+									</a>
+								</li>
+								<li>
+									<a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()" style="font-size: 16pt; color: black;">
+										<strong><span class="glyphicon glyphicon-pause"></span> Pause</strong>
+									</a>
+								</li>
+								<li>
+									<a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()" style="font-size: 16pt; color: black;">
+										<strong><span class="glyphicon glyphicon-stop"></span> End</strong>
+									</a>
+								</li>
 							</ul>
-						</div>
-					</nav>
-					<!-- <div class="row"> -->
-						<!-- <div class="navbar navbar-default"> -->
-							<!-- <h1 class="col-md-3">{{$ctrl.gameLengthMinutes}}:{{$ctrl.gameLengthSeconds}}</h1> -->
-
-<!-- 							<div class="col-md-2 col-sm-2">
-								<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()">Pause</button>
-							</div>
-							<div class="col-md-2 col-sm-2">
-								<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()">End</button>
-							</div> -->
-						<!-- </div> -->
-					<!-- </div> end Row -->
+						</div> <!-- end Container -->
+					</nav> <!-- end Navbar -->
 					<div class="row">
 						<div class="col-md-3 col-sm-3">
 							<h3 class="header text-center" ng-class="$ctrl.isButtonSelected('ATT') ? 'selected' : 'unselected'" ng-click="$ctrl.addToPosition( 'ATT' )">Forwards</h3>
