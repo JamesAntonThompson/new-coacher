@@ -135,22 +135,29 @@
 			removeFromList( id, service.positionBenchList );
 		}
 
+		function sortBench( startIndex ) {
+			if ( startIndex < service.positionBenchList.length ) {
+				for ( var i = startIndex; i < service.positionBenchList.length - 1; i++ ) {
+					var compare_1 = service.getById( service.positionBenchList[ i ]);
+					var compare_2 = service.getById( service.positionBenchList[ i + 1 ]);
+					if ( compare_1.cbt < compare_2.cbt ) {
+						var tmp = service.positionBenchList[ i ];
+						service.positionBenchList[ i ] = service.positionBenchList[ i + 1 ];
+						service.positionBenchList[ i + 1 ] = tmp;
+						sortBench( startIndex + 1 );
+					}
+				}
+			}
+		}
+
 		service.getBench = function() {
 			// DebugConsoleLog( 'Players.getBench()');
 			// sort the bench first
-			if ( service.positionBenchList ) {
-				// console.log( 'sorting the bench');
-				// service.positionBenchList.sort( function(a, b) { 
-					// console.log( a + ',' + b );
-					// return teamList[ a ].cbt - teamList[ b ].cbt; } );
-				// service.positionBenchList.sort( function(a, b) { 
-					// return ( teamList[ a-1 ].cbt > teamList[ b-1 ].cbt );
-					// console.log( a + ',' + b );
-					// console.log( teamList[ a ].id );
-					// console.log( teamList[ a ].id );
-
-				// });//teamList[ a ].cbt > teamList[ b ].cbt; } )
-			}
+			// if ( service.positionBenchList ) {
+				for ( var i = 0; i < service.positionBenchList.length ; i++ ) {
+					sortBench( 0 );
+				}
+			// }
 			// Now let's get it
 			var result = [];
 			var len = service.positionBenchList.length;
