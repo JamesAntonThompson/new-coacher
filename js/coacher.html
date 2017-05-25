@@ -112,7 +112,7 @@
 							<div class="col-md-3 col-sm-3" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 								<h4 class="text-center"><strong>{{ player.name }}</strong></h4>
 								<p ng-class="$ctrl.isLongestInPos(player.id, 'BEN') ? 'highlighted' : 'unhighlighted'">current time: {{$ctrl.displayTime( player.cbt ) }}</p>
-								<p>total bench  : {{$ctrl.displayTime( player.tbt ) }}</p>								
+								<!-- <p>total bench  : {{$ctrl.displayTime( player.tbt ) }}</p>								 -->
 								<p>total game   : {{$ctrl.displayTime( player.tgt ) }}</p>
 							</div>
 						</div>
