@@ -58,5 +58,5 @@ body { background-color: ForestGreen;
 p { margin-bottom: 5px; }
 
 .highlighted { background-color: black; border-radius: 2px; color: white; padding: 4px;}
-.unhighlighted { background-color: transparent; }
+.unhighlighted { background-color: transparent; padding: 4px;}
 

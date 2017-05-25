@@ -202,10 +202,14 @@
 		service.allToBench = function() {
 			DebugConsoleLog( 'Players.allToBench()');
 			// Add everyone to the bench
-			service.positionBenchList = [];
+			// service.positionBenchList = [];
 			for ( var i = 0; i < teamList.length; i++ ) {
-				if ( !isOnBench( teamList[ i ].id )) {
+				if ( isOnBench( teamList[ i ].id )) {
+					console.log( teamList[ i ].name + ' is already on the bench');
+					teamList[i].cgt = 0;
+				} else {
 					// The player is not already on the bench
+					console.log( teamList[ i ].name + ' is not already on the bench');
 					teamList[i].cgt = 0;
 					teamList[i].cbt = 0;
 					service.positionBenchList.push( teamList[ i ].id );
@@ -219,9 +223,10 @@
 		}
 
 		function isOnBench( id ) {
-			var i = 0;
-			while ( i < service.positionBenchList.length && service.positionBenchList[ i ] != id ) { i++; }
-			return ( i < service.positionBenchList.length );
+			return ( service.positionBenchList.indexOf( id ) != -1 );
+			// var i = 0;
+			// while ( i < service.positionBenchList.length && service.positionBenchList[ i ] != id ) { i++; }
+			// return ( i < service.positionBenchList.length );
 		}
 
 		function indexBench( id ) {
