@@ -25,9 +25,17 @@
 			$ctrl.playersMidfielders = Players.getMidfielders();
 			$ctrl.playersDefenders = Players.getDefenders();
 			$ctrl.playersGoalKeepers = Players.getGoalKeepers();
+			$ctrl.players = Players.getPlayers();
+			DebugConsoleLog( $ctrl.players );
 			$ctrl.timeOfLastTick = null;
 			$ctrl.prevClick = null;
+			$('#removePlayers').modal();
 		};
+
+		$ctrl.removePlayer = function( id ) {
+			Players.removePlayer( id );
+			$ctrl.playersBench = Players.getBench();
+		}
 
 		$ctrl.onTimeout = function() {
 			$ctrl.gameRemaining = $ctrl.gameLength - (($ctrl.gameTimeStart - new Date()) * -1);
@@ -92,7 +100,7 @@
 
 		$ctrl.end = function() {
 			// Send all players to the bench
-			if ( $ctrl.gameHalf == 1 ) {
+			if ( $ctrl.gameStatus == '1st Half' ) {
 				$ctrl.modalMessage = 'Are you sure you want to end the 1st half?';
 			} else {
 				$ctrl.modalMessage = 'Are you sure you want to end the game?';
@@ -123,7 +131,6 @@
 			$ctrl.playersDefenders = Players.getDefenders();
 			$ctrl.playersGoalKeepers = Players.getGoalKeepers();
 		}
-
 
 		$ctrl.isButtonSelected = function( pos ) {
 			return ( $ctrl.prevClick && $ctrl.prevClick[ 0 ].data == pos );

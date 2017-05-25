@@ -118,6 +118,7 @@
 						</div>
 					</div> <!-- end Row -->
 
+
 					<!-- Model - End Timer -->
 					<div class="modal fade" id="endTimer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog" role="document">
@@ -129,15 +130,47 @@
 									<h3 class="modal-title" id="bluemixHeaderLabel">End this period?</h3>
 								</div>
 								<div class="modal-body">
+									<!-- <div ng-repeat="player in $ctrl.players"> -->
 									<p>{{$ctrl.modalMessage}}</p>
+									<!-- </div> -->
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="$ctrl.endPeriod()">Yes</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="$ctrl.endPeriod();">Yes</button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- end Modal -->
+
+
+					<!-- Model - Player Remover -->
+					<div class="modal fade" id="removePlayers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h3 class="modal-title" id="bluemixHeaderLabel">Are any of the squad not playing in this match?</h3>
+								</div>
+								<div class="modal-body">
+									<div ng-repeat="player in $ctrl.players">
+										<div class="row">
+											<h4 class="col-md-6 col-sm-6">{{ player.name }}</h4>
+											<h4 class="col-md-6 col-sm-6"><span ng-click="$ctrl.removePlayer(player.id);" class="glyphicon glyphicon-remove"></span></h4>
+										</div>
+									</div>
+									<!-- <p>{{$ctrl.modalMessage}}</p> -->
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end Modal -->
+
+
 				</div> <!-- end Controller -->
 			<div> <!-- end Container -->
 		</div> <!-- end ng-app -->

@@ -92,8 +92,31 @@
 			}
 			return result;
 		}
+		////////////////////////////////// Remove From Game Functions ///////////////
 
-		////////////////////////////////// Forwards functions///////////////////////
+		service.removePlayer = function( id ) {
+			var i = 0;
+			removeFromBench( id );
+			while ( i < teamList.length ) {
+				if ( teamList[ i ].id == id ) {
+					if ( i == 0 ) {
+						teamList.shift();
+					} else { 
+						teamList.splice( i, 1 );
+					}
+					// removeFromForwards( id );
+					return;
+				}
+				i++;
+			}
+		}
+
+		service.getPlayers = function() {
+			return teamList;
+		}
+
+
+		////////////////////////////////// Forwards functions ///////////////////////
 		function addToForward( id ) {
 			DebugConsoleLog( 'Players.addToForward()');
 			addToList( id, service.positionForwardList );
