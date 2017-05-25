@@ -35,6 +35,7 @@
 								<li>
 									<a href="#" style="font-size: 32pt; color: black;"><strong>{{$ctrl.gameRemaining | date:'mm:ss'}}</strong></a>
 								</li>
+								<!-- <li><a href="#">{{ $ctrl.timeOfLastTick }}</a></li> -->
 								<li>
 									<a ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()" style="font-size: 16pt; color: black;">
 										<strong><span class="glyphicon glyphicon-play"></span> Play</strong>
@@ -60,9 +61,9 @@
 								<div ng-repeat="player in $ctrl.playersForwards">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<p ng-class="$ctrl.isLongestInPos(player.id, 'ATT') ? 'highlighted' : 'unhighlighted'">current time: {{$ctrl.displayTime( player.cgt )}}</p>
+										<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'ATT') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.cgt )}}</strong></h4>
 										<!-- <p>total game: {{$ctrl.displayTime( player.tgt )}}</p> -->
-										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
+										<p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -73,8 +74,8 @@
 								<div ng-repeat="player in $ctrl.playersMidfielders">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<p ng-class="$ctrl.isLongestInPos(player.id, 'MID') ? 'highlighted' : 'unhighlighted'">current time: {{$ctrl.displayTime( player.cgt )}}</p>
-										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
+										<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'MID') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.cgt )}}</strong></h4>
+										<p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -85,8 +86,8 @@
 								<div ng-repeat="player in $ctrl.playersDefenders">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<p ng-class="$ctrl.isLongestInPos(player.id, 'DEF') ? 'highlighted' : 'unhighlighted'">current time: {{$ctrl.displayTime( player.cgt )}}</p>
-										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
+										<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'DEF') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.cgt )}}</strong></h4>
+										<p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -97,8 +98,8 @@
 								<div ng-repeat="player in $ctrl.playersGoalKeepers">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<p>current time: {{$ctrl.displayTime( player.cgt )}}</p>
-										<p>total game: {{$ctrl.displayTime( player.tgt )}}</p>
+										<h4 class="text-center"><strong>{{$ctrl.displayTime( player.cgt )}}<strong></h4>
+										<p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -111,9 +112,8 @@
 						<div ng-repeat="player in $ctrl.playersBench">
 							<div class="col-md-3 col-sm-3" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 								<h4 class="text-center"><strong>{{ player.name }}</strong></h4>
-								<p ng-class="$ctrl.isLongestInPos(player.id, 'BEN') ? 'highlighted' : 'unhighlighted'">current time: {{$ctrl.displayTime( player.cbt ) }}</p>
-								<!-- <p>total bench  : {{$ctrl.displayTime( player.tbt ) }}</p>								 -->
-								<p>total game   : {{$ctrl.displayTime( player.tgt ) }}</p>
+								<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'BEN') ? 'highlighted' : 'unhighlighted'">{{$ctrl.displayTime( player.cbt ) }}</h4>
+								<p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p>
 							</div>
 						</div>
 					</div> <!-- end Row -->
@@ -130,9 +130,7 @@
 									<h3 class="modal-title" id="bluemixHeaderLabel">End this period?</h3>
 								</div>
 								<div class="modal-body">
-									<!-- <div ng-repeat="player in $ctrl.players"> -->
 									<p>{{$ctrl.modalMessage}}</p>
-									<!-- </div> -->
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="$ctrl.endPeriod();">Yes</button>

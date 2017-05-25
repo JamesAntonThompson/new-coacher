@@ -48,7 +48,9 @@
 				var increment = Math.round(((( $ctrl.timeOfLastTick - new Date()) / 1000) % 60) * -1);
 				Players.incrementTime( increment );
 			}
-			$ctrl.timeOfLastTick = new Date();
+			if ( $ctrl.gameStatus != '2nd Half Setup' ) {
+				$ctrl.timeOfLastTick = new Date();
+			}
 			if ( $ctrl.timerStatus == 'on' ) {
 				var mytimeout = $timeout($ctrl.onTimeout, 1000);
 			}
@@ -117,12 +119,13 @@
 			if ( $ctrl.gameStatus == '1st Half' ) {
 				// It is the end of the 1st half.  Let's set up for the 2nd half
 				$ctrl.gameStatus = '2nd Half Setup';
-				// $ctrl.gameHalf = 2;
 				$ctrl.gameRemaining = $ctrl.gameLength;
+				$ctrl.timeOfLastTick = null;
 			} else {
 				// It is the end of the game
 				$ctrl.gameStatus = 'Game Over';
-				$ctrl.gameRemaining = 0;				
+				$ctrl.gameRemaining = 0;
+				$ctrl.gameRemaining = 0;			
 			}
 			// Final step - refresh everyting
 			$ctrl.playersBench = Players.getBench();
@@ -138,11 +141,6 @@
 
 		$ctrl.isPlayerSelected = function( id ) {
 			return ( $ctrl.prevClick && $ctrl.prevClick[ 0 ].data.id == id );
-			// if ( $ctrl.prevClick && $ctrl.prevClick[ 0 ].data.id == id ) { 
-			// 	return true;
-			// } else {
-			// 	return false;
-			// }
 		}
 
 		$ctrl.addToPosition = function( pos ) {
