@@ -26,7 +26,7 @@
 			$ctrl.playersDefenders = Players.getDefenders();
 			$ctrl.playersGoalKeepers = Players.getGoalKeepers();
 			$ctrl.players = Players.getPlayers();
-			DebugConsoleLog( $ctrl.players );
+			// DebugConsoleLog( $ctrl.players );
 			$ctrl.timeOfLastTick = null;
 			$ctrl.prevClick = null;
 			$('#removePlayers').modal();
@@ -59,10 +59,9 @@
 		$ctrl.start = function() {
 			$ctrl.timerStatus = 'on';
 			if ( $ctrl.gameStatus == '1st Half Setup') {
-				console.log( 'here');
 				$ctrl.gameStatus = '1st Half';
 				$ctrl.gameTimeStart = new Date();
-				DebugConsoleLog( $ctrl.gameTimeStart );
+				// DebugConsoleLog( $ctrl.gameTimeStart );
 				$ctrl.gameRemaining = $ctrl.gameLength;
 			}
 			if ( $ctrl.gameStatus == '2nd Half Setup') {
@@ -83,7 +82,6 @@
 
 		var displaySeconds = function( time ) {
 			var seconds = Math.floor( time % 60 );
-			// var result = -1
 			if ( seconds < 10 ) {
 				return '0' + seconds.toString();
 			} else {
@@ -98,6 +96,14 @@
 			} else {
 				return minutes.toString();
 			}
+		}
+
+		$ctrl.timeTrackingClick = function( id ) {
+			Players.toggleTimeTracking( id );
+		}
+
+		$ctrl.isTimeTracking = function( id ) {
+			return Players.isTimeTracking( id );
 		}
 
 		$ctrl.end = function() {
@@ -159,7 +165,7 @@
 			DebugConsoleLog( 'gameTimer.click()' );
 			if ( !$ctrl.prevClick ) {
 				// There is no previous click registered
-				console.log('there is no previous click');
+				// console.log('there is no previous click');
 				$ctrl.prevClick = [];
 				$ctrl.prevClick.push( ref );
 			} else {

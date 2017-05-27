@@ -149,13 +149,19 @@
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
-									<h3 class="modal-title" id="bluemixHeaderLabel">Are any of the squad not playing in this match?</h3>
+									<h3 class="modal-title" id="bluemixHeaderLabel">Setup squad for this match</h3>
 								</div>
 								<div class="modal-body">
 									<div ng-repeat="player in $ctrl.players">
 										<div class="row">
-											<h4 class="col-md-6 col-sm-6">{{ player.name }}</h4>
-											<h4 class="col-md-6 col-sm-6"><span ng-click="$ctrl.removePlayer(player.id);" class="glyphicon glyphicon-remove"></span></h4>
+											<h4 class="col-md-4 col-sm-4">{{ player.name }}</h4>
+											<h4 ng-if="$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
+												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="glyphicon glyphicon-time"></span>
+											</h4>
+											<h4 ng-if="!$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
+												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: grey;" class="glyphicon glyphicon-time"></span>
+											</h4>
+											<h4 class="col-md-4 col-sm-4"><span ng-click="$ctrl.removePlayer(player.id);" class="glyphicon glyphicon-remove"></span></h4>
 										</div>
 									</div>
 									<!-- <p>{{$ctrl.modalMessage}}</p> -->

@@ -18,19 +18,19 @@
 		var teamList = [];
 
 		DebugConsoleLog('Players().$onInit()');
-		teamList = [{ id: 1, name: 'Elvie', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 2, name: 'Sienna', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 3, name: 'Jess', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-				 	{ id: 4, name: 'Louise', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 5, name: 'Milla', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 6, name: 'Grace', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 7, name: 'Maddie', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 8, name: 'Sadie', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 9, name: 'Daisy', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 10, name: 'Scarlett', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 11, name: 'Gabby', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 12, name: 'Clara', tgt: 0, cgt: 0, tbt: 0, cbt: 0 },
-					{ id: 13, name: 'Kate', tgt: 0, cgt: 0, tbt: 0, cbt: 0 }];
+		teamList = [{ id: 1, name: 'Elvie', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 2, name: 'Sienna', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 3, name: 'Jess', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+				 	{ id: 4, name: 'Louise', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 5, name: 'Milla', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 6, name: 'Grace', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 7, name: 'Maddie', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 8, name: 'Sadie', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 9, name: 'Daisy', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 10, name: 'Scarlett', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 11, name: 'Gabby', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 12, name: 'Clara', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
+					{ id: 13, name: 'Kate', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true }];
 
 		service.positionForwardList = [];
 		service.positionBenchList = [];
@@ -73,16 +73,18 @@
 		function isLongest( id, list, pos ) {
 			var result = true;
 			var player = service.getById( id );
-			if ( player ) {
+			if ( player && player.timeTracking == true ) {
 				for ( var i = 0; i < list.length; i++ ) {
 					var comp = service.getById( list[ i ]);
-					if ( pos == 'BEN') {
-						if ( comp.cbt > player.cbt ) {
-							return false;
-						}
-					} else {
-						if ( comp.cgt > player.cgt ) {
-							return false;
+					if ( comp.timeTracking == true ) {
+						if ( pos == 'BEN') {
+							if ( comp.cbt > player.cbt ) {
+								return false;
+							}
+						} else {
+							if ( comp.cgt > player.cgt ) {
+								return false;
+							}
 						}
 					}
 				}
@@ -92,6 +94,28 @@
 			}
 			return result;
 		}
+
+		service.toggleTimeTracking = function( id ) {
+			var player = service.getById( id );
+			if ( player ) {
+				if ( player.timeTracking == true ) {
+					player.timeTracking = false;
+				} else {
+					player.timeTracking = true;
+				}
+			}
+		}
+
+		service.isTimeTracking = function( id ) {
+			var player = service.getById( id );
+			if ( player ) {
+				return player.timeTracking;
+			} else {
+				return false;
+			}
+		}
+
+
 		////////////////////////////////// Remove From Game Functions ///////////////
 
 		service.removePlayer = function( id ) {
