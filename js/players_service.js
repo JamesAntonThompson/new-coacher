@@ -16,6 +16,7 @@
 		DebugConsoleLog('Players()');
 
 		var teamList = [];
+		var teamListIdIndex = [];
 
 		DebugConsoleLog('Players().$onInit()');
 		teamList = [{ id: 1, name: 'Elvie', tgt: 0, cgt: 0, tbt: 0, cbt: 0, timeTracking: true },
@@ -128,11 +129,12 @@
 					} else { 
 						teamList.splice( i, 1 );
 					}
-					// removeFromForwards( id );
 					return;
 				}
 				i++;
 			}
+			// This forces the re-creation of the teamListIdIndex
+			teamListIdIndex = [];
 		}
 
 		service.getPlayers = function() {
@@ -169,12 +171,11 @@
 			return isLongest( id, service.positionForwardList, 'ATT');
 		}
 
-
 		///////////////////////////////////////////////// Bench functions
+
 		function addToBench( id ) {
 			DebugConsoleLog( 'Players.addToBench()');	
 			addToList( id, service.positionBenchList );
-			// service.positionBenchList.push( id );
 		}
 
 		function removeFromBench( id ) {
@@ -198,19 +199,16 @@
 		}
 
 		service.getBench = function() {
-			// DebugConsoleLog( 'Players.getBench()');
+			DebugConsoleLog( 'Players.getBench()');
 			// sort the bench first
-			// if ( service.positionBenchList ) {
-				for ( var i = 0; i < service.positionBenchList.length ; i++ ) {
-					sortBench( 0 );
-				}
-			// }
+			for ( var i = 0; i < service.positionBenchList.length; i++ ) {
+				sortBench( 0 );
+			}
 			// Now let's get it
 			var result = [];
 			var len = service.positionBenchList.length;
 			var j = 0;
 			for ( var i = 0; i < len; i++ ) {
-				// console.log( 'looking for: ' + service.positionBenchList[ i ]);
 				j = 0;
 				while ( j < teamList.length && teamList[ j ].id != service.positionBenchList[ i ]) { j++; }
 				if ( j >= teamList.length ) { 
@@ -226,14 +224,11 @@
 		service.allToBench = function() {
 			DebugConsoleLog( 'Players.allToBench()');
 			// Add everyone to the bench
-			// service.positionBenchList = [];
 			for ( var i = 0; i < teamList.length; i++ ) {
 				if ( isOnBench( teamList[ i ].id )) {
-					console.log( teamList[ i ].name + ' is already on the bench');
 					teamList[i].cgt = 0;
 				} else {
 					// The player is not already on the bench
-					console.log( teamList[ i ].name + ' is not already on the bench');
 					teamList[i].cgt = 0;
 					teamList[i].cbt = 0;
 					service.positionBenchList.push( teamList[ i ].id );
@@ -529,12 +524,17 @@
 		}
 
 		service.getById = function( id ) {
-			for ( var i = 0; i < teamList.length; i++ ) {
-				if ( teamList[ i ].id == id ) {
-					return teamList[ i ];
+			if ( teamListIdIndex.length < 1 ) {
+				for ( var i = 0; i < teamList.length; i++ ) {
+					teamListIdIndex.push( teamList[ i ].id );
 				}
 			}
-			return null;
+			var index = teamListIdIndex.indexOf( id );
+			if ( id == -1 ) {
+				return null;
+			} else {
+				return teamList[ index ];
+			}
 		}
 
 		service.getByName = function( name ) {

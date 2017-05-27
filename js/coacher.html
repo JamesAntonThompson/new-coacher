@@ -35,7 +35,6 @@
 								<li>
 									<a href="#" style="font-size: 32pt; color: black;"><strong>{{$ctrl.gameRemaining | date:'mm:ss'}}</strong></a>
 								</li>
-								<!-- <li><a href="#">{{ $ctrl.timeOfLastTick }}</a></li> -->
 								<li>
 									<a ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()" style="font-size: 16pt; color: black;">
 										<strong><span class="glyphicon glyphicon-play"></span> Play</strong>
@@ -62,7 +61,6 @@
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
 										<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'ATT') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.cgt )}}</strong></h4>
-										<!-- <p>total game: {{$ctrl.displayTime( player.tgt )}}</p> -->
 										<p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p>
 									</div>
 								</div> <!-- end ng-repeat -->
