@@ -161,6 +161,13 @@
 			if ( pos == 'DEF' ) { return Players.isLongestDefender( id ); }
 		}
 
+		$ctrl.isShortestPlayingTimeInPos = function( id, pos ) {
+			if ( pos == 'ATT' ) { return Players.isShortestPlayingTimeForward( id ); }
+			if ( pos == 'BEN' ) { return Players.isShortestPlayingTimeBench( id ); }
+			if ( pos == 'MID' ) { return Players.isShortestPlayingTimeMidfield( id ); }
+			if ( pos == 'DEF' ) { return Players.isShortestPlayingTimeDefender( id ); }
+		}
+
 		$ctrl.click = function( ref ) {
 			DebugConsoleLog( 'gameTimer.click()' );
 			if ( !$ctrl.prevClick ) {

@@ -96,6 +96,25 @@
 			return result;
 		}
 
+		function isShortestPlayingTime( id, list ) {
+			var result = true;
+			var player = service.getById( id );
+			if ( player && player.timeTracking == true ) {
+				for ( var i = 0; i < list.length; i++ ) {
+					var comp = service.getById( list[ i ]);
+					if ( comp.timeTracking == true ) {
+						if ( comp.tgt < player.tgt ) {
+							return false;
+						}
+					}
+				}
+			} else {
+				// Something went wrong
+				result = false;
+			}
+			return result;
+		}
+
 		service.toggleTimeTracking = function( id ) {
 			var player = service.getById( id );
 			if ( player ) {
@@ -171,6 +190,10 @@
 			return isLongest( id, service.positionForwardList, 'ATT');
 		}
 
+		service.isShortestPlayingTimeForward = function( id ) {
+			return isShortestPlayingTime( id, service.positionForwardList );
+		}
+
 		///////////////////////////////////////////////// Bench functions
 
 		function addToBench( id ) {
@@ -243,9 +266,6 @@
 
 		function isOnBench( id ) {
 			return ( service.positionBenchList.indexOf( id ) != -1 );
-			// var i = 0;
-			// while ( i < service.positionBenchList.length && service.positionBenchList[ i ] != id ) { i++; }
-			// return ( i < service.positionBenchList.length );
 		}
 
 		function indexBench( id ) {
@@ -254,6 +274,10 @@
 
 		service.isLongestOnBench = function( id ) {
 			return isLongest( id, service.positionBenchList, 'BEN');
+		}
+
+		service.isShortestPlayingTimeBench = function( id ) {
+			return isShortestPlayingTime( id, service.positionBenchList );
 		}
 
 		////////////////////////////////////////// MIDFIELD FUNCTIONS
@@ -285,6 +309,10 @@
 			return isLongest( id, service.positionMidList, 'MID');
 		}
 
+		service.isShortestPlayingTimeMidfield = function( id ) {
+			return isShortestPlayingTime( id, service.positionMidList );
+		}
+
 		////////////////////////////////////////// DEFENDER FUNCTIONS
 		function addToDefence( id ) {
 			DebugConsoleLog( 'Players.addToDefence()');
@@ -311,6 +339,10 @@
 
 		service.isLongestDefender = function( id ) {
 			return isLongest( id, service.positionDefenceList, 'DEF');
+		}
+
+		service.isShortestPlayingTimeDefender = function( id ) {
+			return isShortestPlayingTime( id, service.positionDefenceList );
 		}
 
 		////////////////////////////////////////// GOAL-KEEPER FUNCTIONS
