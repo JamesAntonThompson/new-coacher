@@ -1,15 +1,7 @@
-body { background-color: ForestGreen; 
-	   /*background-image: URL("soccer_pitch.png");*/
-	   /*background-repeat: no-repeat;*/
-	   /*background-image: "soccer_pitch.png";*/
-	   /*background-image: soccer_pitch.png;*/
-	 }
-/*h3 { border: 1px black solid; }*/
+body { background-color: ForestGreen; }
 
 .header {
 	border: 1px solid #333;
-	/*margin-top: 10px;*/
-	/*margin-bottom: 10px;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-radius: 10px;
@@ -21,13 +13,10 @@ body { background-color: ForestGreen;
 
 .subsheader {
 	border: 1px solid #333;
-	/*margin-top: 10px;*/
-	/*margin-bottom: 10px;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-radius: 10px;
 	margin-left: -15px;
-	/*width: 180px;*/
 	color: black;
 	text-align: center;
 	background-color: white;
@@ -39,7 +28,6 @@ body { background-color: ForestGreen;
 	border-radius: 10px;
 	margin-top: 5px;
 	margin-right: 5px;
-	/*padding: 2px;*/
 	color: white;
 	width: 160px;
 }
@@ -50,7 +38,6 @@ body { background-color: ForestGreen;
 	border-radius: 10px;
 	margin-top: 5px;
 	margin-right: 5px;
-	/*padding: 2px;*/
 	color: black;
 	width: 160px;
 }
