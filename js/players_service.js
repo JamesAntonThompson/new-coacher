@@ -148,12 +148,12 @@
 					} else { 
 						teamList.splice( i, 1 );
 					}
+					// This forces the re-creation of the teamListIdIndex
+					teamListIdIndex = [];
 					return;
 				}
 				i++;
 			}
-			// This forces the re-creation of the teamListIdIndex
-			teamListIdIndex = [];
 		}
 
 		service.getPlayers = function() {
