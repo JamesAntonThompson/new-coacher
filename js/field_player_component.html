@@ -1,0 +1,4 @@
+<h4 class="text-center"><strong>{{$ctrl.player.name}}</strong></h4>
+<h4 ng-if="$ctrl.pos != 'BEN'" class="text-center" ng-class="$ctrl.isLongestInPos() ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( $ctrl.player.cgt )}}</strong></h4>
+<h4 ng-if="$ctrl.pos == 'BEN'" class="text-center" ng-class="$ctrl.isLongestInPos() ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( $ctrl.player.cbt )}}</strong></h4>
+<h4 class="text-center" ng-class="$ctrl.isShortestPlayingTimeInPos() ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( $ctrl.player.tgt )}}</strong></h4>

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<!-- sudo python3 -m http.server 80 -->
 <html>
 	<head>
 		<meta charset="utf-8">
+		<!-- Added to aks the browser to refresh the cache each time the page is loaded -->
 		<title>Coacher</title>
 		<!-- Stuff needed for Bootstrap -->
 		<!-- Latest compiled and minified CSS -->
@@ -15,6 +17,7 @@
 		<!-- My stuff -->
 		<link rel="stylesheet" href="css/coacher.css">
 		<script type="text/javascript" src="js/coacher_module.js"></script>
+		<script type="text/javascript" src="js/field_player_component.js"></script>
 		<script type="text/javascript" src="js/players_service.js"></script>
 		<!-- Timer Directive -->
 		<script type="text/javascript" src="js/my_timer.js"></script>
@@ -60,11 +63,7 @@
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersForwards">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
-										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'ATT') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.cgt )}}</strong></h4>
-										<h4 class="text-center" ng-class="$ctrl.isShortestPlayingTimeInPos(player.id, 'ATT') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.tgt )}}</strong></h4>
-
-										<!-- <p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p> -->
+										<field-player pos="ATT" id="player.id"></field-player>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -74,10 +73,7 @@
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersMidfielders">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
-										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'MID') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.cgt )}}</strong></h4>
-										<h4 class="text-center" ng-class="$ctrl.isShortestPlayingTimeInPos(player.id, 'MID') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.tgt )}}</strong></h4>
-										<!-- <p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p> -->
+										<field-player pos="MID" id="player.id"></field-player>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -87,10 +83,7 @@
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersDefenders">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
-										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'DEF') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.cgt )}}</strong></h4>
-										<h4 class="text-center" ng-class="$ctrl.isShortestPlayingTimeInPos(player.id, 'DEF') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.tgt )}}</strong></h4>
-										<!-- <p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p> -->
+										<field-player pos="DEF" id="player.id"></field-player>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -100,9 +93,7 @@
 							<div class="row">
 								<div ng-repeat="player in $ctrl.playersGoalKeepers">
 									<div class="col-md-12" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
-										<h4 class="text-center"><strong>{{player.name}}</strong></h4>
-										<h4 class="text-center"><strong>{{$ctrl.displayTime( player.cgt )}}<strong></h4>
-										<p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p>
+										<field-player pos="GK" id="player.id"></field-player>
 									</div>
 								</div> <!-- end ng-repeat -->
 							</div> <!-- end ng-row -->
@@ -114,10 +105,7 @@
 					<div class="Row">
 						<div ng-repeat="player in $ctrl.playersBench">
 							<div class="col-md-3 col-sm-3" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
-								<h4 class="text-center"><strong>{{ player.name }}</strong></h4>
-								<h4 class="text-center" ng-class="$ctrl.isLongestInPos(player.id, 'BEN') ? 'highlighted' : 'unhighlighted'">{{$ctrl.displayTime( player.cbt ) }}</h4>
-								<h4 class="text-center" ng-class="$ctrl.isShortestPlayingTimeInPos(player.id, 'BEN') ? 'highlighted' : 'unhighlighted'"><strong>{{$ctrl.displayTime( player.tgt )}}</strong></h4>
-								<!-- <p class="text-center">{{$ctrl.displayTime( player.tgt ) }}</p> -->
+								<field-player pos="BEN" id="player.id"></field-player>
 							</div>
 						</div>
 					</div> <!-- end Row -->

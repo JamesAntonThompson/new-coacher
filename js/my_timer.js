@@ -26,7 +26,6 @@
 			$ctrl.playersDefenders = Players.getDefenders();
 			$ctrl.playersGoalKeepers = Players.getGoalKeepers();
 			$ctrl.players = Players.getPlayers();
-			// DebugConsoleLog( $ctrl.players );
 			$ctrl.timeOfLastTick = null;
 			$ctrl.prevClick = null;
 			$('#removePlayers').modal();
@@ -61,7 +60,6 @@
 			if ( $ctrl.gameStatus == '1st Half Setup') {
 				$ctrl.gameStatus = '1st Half';
 				$ctrl.gameTimeStart = new Date();
-				// DebugConsoleLog( $ctrl.gameTimeStart );
 				$ctrl.gameRemaining = $ctrl.gameLength;
 			}
 			if ( $ctrl.gameStatus == '2nd Half Setup') {
@@ -74,28 +72,6 @@
 
 		$ctrl.stop = function() {
 			$ctrl.timerStatus = 'off';
-		}
-
-    	$ctrl.displayTime = function( time ) {
-    		return displayMinutes(time) + ':' + displaySeconds(time);
-    	}
-
-		var displaySeconds = function( time ) {
-			var seconds = Math.floor( time % 60 );
-			if ( seconds < 10 ) {
-				return '0' + seconds.toString();
-			} else {
-				return seconds.toString();
-			}
-		}
-
-		var displayMinutes = function( time ) {
-			var minutes = Math.floor( time / 60 );
-			if ( minutes < 10 ) {
-				return '0' + minutes.toString();
-			} else {
-				return minutes.toString();
-			}
 		}
 
 		$ctrl.timeTrackingClick = function( id ) {
@@ -117,7 +93,6 @@
 		}
 
 		$ctrl.endPeriod = function() {
-			// console.log('here');
 			$ctrl.timerStatus = 'off';
 			// Let's put all the players on the bench
 			Players.allToBench();
@@ -154,25 +129,10 @@
 			$ctrl.click({ type: 'button', data: pos });
 		}
 
-		$ctrl.isLongestInPos = function( id, pos ) {
-			if ( pos == 'ATT' ) { return Players.isLongestForward( id ); }
-			if ( pos == 'BEN' ) { return Players.isLongestOnBench( id ); }
-			if ( pos == 'MID' ) { return Players.isLongestMidfield( id ); }
-			if ( pos == 'DEF' ) { return Players.isLongestDefender( id ); }
-		}
-
-		$ctrl.isShortestPlayingTimeInPos = function( id, pos ) {
-			if ( pos == 'ATT' ) { return Players.isShortestPlayingTimeForward( id ); }
-			if ( pos == 'BEN' ) { return Players.isShortestPlayingTimeBench( id ); }
-			if ( pos == 'MID' ) { return Players.isShortestPlayingTimeMidfield( id ); }
-			if ( pos == 'DEF' ) { return Players.isShortestPlayingTimeDefender( id ); }
-		}
-
 		$ctrl.click = function( ref ) {
 			DebugConsoleLog( 'gameTimer.click()' );
 			if ( !$ctrl.prevClick ) {
 				// There is no previous click registered
-				// console.log('there is no previous click');
 				$ctrl.prevClick = [];
 				$ctrl.prevClick.push( ref );
 			} else {
