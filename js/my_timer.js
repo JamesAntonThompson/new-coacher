@@ -2,8 +2,8 @@
 "use strict";
 
 	angular.module('coacher').controller('gameTimer', gameTimer);
-	gameTimer.$inject = ['$rootScope', '$timeout', 'Players'];
-	function gameTimer( $rootScope, $timeout, Players ) {
+	gameTimer.$inject = ['$rootScope', '$timeout', 'Players', 'PlayersEventLog' ];
+	function gameTimer( $rootScope, $timeout, Players, PlayersEventLog ) {
 		var $ctrl = this;
 
 		// Debugging code
@@ -55,14 +55,33 @@
 			}
 		}
 
+		function eventLogPos( array, msg, time ) {
+			for ( var i = 0; i < array.length; i++ ) {
+				PlayersEventLog.eventLogAdd( array[ i ].name, msg + ' ' + i, time );
+			}
+		}
+
 		$ctrl.start = function() {
 			$ctrl.timerStatus = 'on';
 			if ( $ctrl.gameStatus == '1st Half Setup') {
+				// We are starting the first half
+				eventLogPos( $ctrl.playersBench, 'started 1st half on the bench', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersForwards, 'started 1st half at Forward', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersMidfielders, 'started 1st half at Midfield', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersDefenders, 'started 1st half at Defence', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersGoalKeepers, 'started 1st half as Goal Keeper', $ctrl.gameLength - $ctrl.gameRemaining );
+				console.log( PlayersEventLog.getLog() );
 				$ctrl.gameStatus = '1st Half';
 				$ctrl.gameTimeStart = new Date();
 				$ctrl.gameRemaining = $ctrl.gameLength;
 			}
 			if ( $ctrl.gameStatus == '2nd Half Setup') {
+				eventLogPos( $ctrl.playersBench, 'ended 1st half on the bench', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersForwards, 'ended 1st half at Forward', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersMidfielders, 'ended 1st half at Midfield', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersDefenders, 'ended 1st half at Defence', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersGoalKeepers, 'ended 1st half as Goal Keeper', $ctrl.gameLength - $ctrl.gameRemaining );
+				console.log( PlayersEventLog.getLog() );
 				$ctrl.gameStatus = '2nd Half';
 				$ctrl.gameTimeStart = new Date();
 				$ctrl.gameRemaining = $ctrl.gameLength;
@@ -99,11 +118,23 @@
 			// Let's reset the clocks
 			if ( $ctrl.gameStatus == '1st Half' ) {
 				// It is the end of the 1st half.  Let's set up for the 2nd half
+				eventLogPos( $ctrl.playersBench, 'ended 1st half on the bench', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersForwards, 'ended 1st half at Forward', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersMidfielders, 'ended 1st half at Midfield', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersDefenders, 'ended 1st half at Defence', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersGoalKeepers, 'ended 1st half as Goal Keeper', $ctrl.gameLength - $ctrl.gameRemaining );
+				console.log( PlayersEventLog.getLog() );
 				$ctrl.gameStatus = '2nd Half Setup';
 				$ctrl.gameRemaining = $ctrl.gameLength;
 				$ctrl.timeOfLastTick = null;
 			} else {
 				// It is the end of the game
+				eventLogPos( $ctrl.playersBench, 'ended the game on the bench', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersForwards, 'ended the game at Forward', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersMidfielders, 'ended the game at Midfield', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersDefenders, 'ended the game at Defence', $ctrl.gameLength - $ctrl.gameRemaining );
+				eventLogPos( $ctrl.playersGoalKeepers, 'ended the game as Goal Keeper', $ctrl.gameLength - $ctrl.gameRemaining );
+				console.log( PlayersEventLog.getLog() );
 				$ctrl.gameStatus = 'Game Over';
 				$ctrl.gameRemaining = 0;
 				$ctrl.gameRemaining = 0;			
@@ -130,7 +161,7 @@
 		}
 
 		$ctrl.click = function( ref ) {
-			DebugConsoleLog( 'gameTimer.click()' );
+			// DebugConsoleLog( 'gameTimer.click()' );
 			if ( !$ctrl.prevClick ) {
 				// There is no previous click registered
 				$ctrl.prevClick = [];

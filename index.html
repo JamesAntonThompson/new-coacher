@@ -17,8 +17,10 @@
 		<!-- My stuff -->
 		<link rel="stylesheet" href="css/coacher.css">
 		<script type="text/javascript" src="js/coacher_module.js"></script>
+		<!-- <script type="text/javascript" src="js/summary_player_component.js"></script> -->
 		<script type="text/javascript" src="js/field_player_component.js"></script>
 		<script type="text/javascript" src="js/players_service.js"></script>
+		<script type="text/javascript" src="js/players_event_log_service.js"></script>
 		<!-- Timer Directive -->
 		<script type="text/javascript" src="js/my_timer.js"></script>
 	</head>
@@ -156,7 +158,6 @@
 											<h4 class="col-md-4 col-sm-4"><span ng-click="$ctrl.removePlayer(player.id);" class="glyphicon glyphicon-remove"></span></h4>
 										</div>
 									</div>
-									<!-- <p>{{$ctrl.modalMessage}}</p> -->
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
@@ -166,9 +167,25 @@
 					</div>
 					<!-- end Modal -->
 
-
+					<div class="row">
+						{{$ctrl.gameStatus}}
+						<div ng-if="$ctrl.gameStatus == 'Game Over'" class="container">
+							<table class="table col-md-12 col-sm=12" style="background-color: white; color: black;">
+								<tbody ng-repeat="player in $ctrl.players">
+									<!-- hi again -->
+									<!-- <tr ng-repeat="player in $ctrl.players"> -->
+									<tr>
+										<td><h3>{{ player.name }}</h3></td>
+										<td>Total Game Time: {{ player.tgt }}</td>
+									</tr>
+										<!-- <summary-player id="player.id"></summary-player> -->
+									<!-- </tr>										 -->
+								</tbody> <!-- end ng-repeat -->
+							</table>
+						</div>
+					</div>
 				</div> <!-- end Controller -->
-			<div> <!-- end Container -->
+			</dir> <!-- end container -->
 		</div> <!-- end ng-app -->
 	</body>
 </html>

@@ -3,7 +3,7 @@
 
 	angular.module('coacher').service('Players', Players);
 
-	// SetiAPI.$inject = ['$http'];
+	// Players.$inject = ['PlayersEventLog'];
 	function Players() {
 		var service = this;
 

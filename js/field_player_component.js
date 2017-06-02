@@ -8,7 +8,7 @@
 		bindings: { pos: '@', id: '<' }
 	});
 
-  	FieldPlayerController.$inject = ['Players'];
+	FieldPlayerController.$inject = ['Players'];
 	function FieldPlayerController(Players) {
 		var $ctrl = this;
 
