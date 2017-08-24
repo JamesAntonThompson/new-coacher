@@ -3,15 +3,22 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+
 		<!-- Added to aks the browser to refresh the cache each time the page is loaded -->
 		<title>Coacher</title>
 		<!-- Stuff needed for Bootstrap -->
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+	    <script src="node_modules/tether/dist/js/tether.min.js"></script>
+    	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 		<!-- Angular -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 		<!-- My stuff -->
@@ -27,38 +34,44 @@
 	
 	<body>
 		<div ng-app="coacher">
-			<div class="container">
-				<div ng-controller="gameTimer as $ctrl">
-					<nav class="navbar navbar-default">
-						<div class="container-fluid">
-							<div class="navbar-header">
-								<a class="navbar-brand" style="font-size: 16pt; color: black;" href="#">Coacher</a>
-							</div>
-							<ul class="nav navbar-nav">
-								<li><a  style="font-size: 16pt; color: black;" href="#">{{$ctrl.gameStatus}}</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right"> 
-								<li>
-									<a href="#" style="font-size: 32pt; color: black;"><strong>{{$ctrl.gameRemaining | date:'mm:ss'}}</strong></a>
-								</li>
-								<li>
-									<a ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()" style="font-size: 16pt; color: black;">
-										<strong><span class="glyphicon glyphicon-play"></span> Play</strong>
-									</a>
-								</li>
-								<li>
-									<a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()" style="font-size: 16pt; color: black;">
-										<strong><span class="glyphicon glyphicon-pause"></span> Pause</strong>
-									</a>
-								</li>
-								<li>
-									<a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()" style="font-size: 16pt; color: black;">
-										<strong><span class="glyphicon glyphicon-stop"></span> End</strong>
-									</a>
-								</li>
-							</ul>
-						</div> <!-- end Container -->
-					</nav> <!-- end Navbar -->
+			<div ng-controller="gameTimer as $ctrl">
+				<nav class="navbar navbar-toggleable-md">
+					<!-- <div class="container"> -->
+						<!-- <div class="navbar-header"> -->
+						<a class="navbar-brand" style="font-size: 16pt; color: black;" href="#">Coacher</a>
+						<ul class="nav navbar-nav list-unstyled">							
+							<li class="nav-item">{{$ctrl.gameStatus}}</li>
+							<li class="nav-item">{{$ctrl.gameRemaining | date:'mm:ss'}}</li>
+						</ul>
+						<ul class="navbar-nav ml-auto">
+							<button ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()"> Play</button>
+							<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()"> Pause</button>
+							<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()"> End</button>
+						</ul>
+
+<!-- 						<ul class="nav navbar-nav navbar-right"> 
+							<li>
+								<a href="#" style="font-size: 32pt; color: black;"><strong>{{$ctrl.gameRemaining | date:'mm:ss'}}</strong></a>
+							</li>
+							<li>
+								<a ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()" style="font-size: 16pt; color: black;">
+									<strong><span class="glyphicon glyphicon-play"></span> Play</strong>
+								</a>
+							</li>
+							<li>
+								<a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()" style="font-size: 16pt; color: black;">
+									<strong><span class="glyphicon glyphicon-pause"></span> Pause</strong>
+								</a>
+							</li>
+							<li>
+								<a ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()" style="font-size: 16pt; color: black;">
+									<strong><span class="glyphicon glyphicon-stop"></span> End</strong>
+								</a>
+							</li>
+						</ul> -->
+					<!-- </div> --> <!-- end Container -->
+				</nav> <!-- end Navbar -->
+				<div class="container">
 					<div class="row">
 						<div class="col-md-3 col-sm-3">
 							<h3 class="header text-center" ng-class="$ctrl.isButtonSelected('ATT') ? 'selected' : 'unselected'" ng-click="$ctrl.addToPosition( 'ATT' )">Forwards</h3>
@@ -164,8 +177,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- end Modal -->
+					</div>	<!-- end Modal -->
 
 					<div class="row">
 						{{$ctrl.gameStatus}}
@@ -184,9 +196,8 @@
 							</table>
 						</div>
 					</div>
-				</div> <!-- end Controller -->
-			</dir> <!-- end container -->
+				</div> <!-- end container -->
+			</div> <!-- end Controller -->
 		</div> <!-- end ng-app -->
 	</body>
 </html>
-

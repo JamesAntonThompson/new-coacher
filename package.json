@@ -10,11 +10,12 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "lite-server": "^2.3.0"
-  },
+  
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "font-awesome": "^4.7.0"
+  },
+  "engine": {
+     "node": "6.11.2"
   }
 }

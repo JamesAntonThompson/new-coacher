@@ -1,10 +1,19 @@
 body { background-color: ForestGreen; }
 
+.navbar {
+	/*margin: -25px 0px 0px 0px; */
+	border-width: 1px;
+	background-color: white;
+	border-style: solid; 
+	border-color: black;
+	border-radius: 0px;
+}
+
 .header {
 	border: 1px solid #333;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	border-radius: 10px;
+	border-radius: 5px;
 	margin-left: -15px;
 	width: 180px;
 	color: black;
@@ -15,7 +24,7 @@ body { background-color: ForestGreen; }
 	border: 1px solid #333;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	border-radius: 10px;
+	border-radius: 5px;
 	margin-left: -15px;
 	color: black;
 	text-align: center;
@@ -25,7 +34,7 @@ body { background-color: ForestGreen; }
 .selected { 
 	border: 1px solid #333;
 	background-color: black; 
-	border-radius: 10px;
+	border-radius: 5px;
 	margin-top: 5px;
 	margin-right: 5px;
 	color: white;
@@ -35,7 +44,7 @@ body { background-color: ForestGreen; }
 .unselected {
 	border: 1px solid #333;
 	background-color: white; 
-	border-radius: 10px;
+	border-radius: 5px;
 	margin-top: 5px;
 	margin-right: 5px;
 	color: black;
