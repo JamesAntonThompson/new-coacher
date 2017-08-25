@@ -4,13 +4,11 @@
   "description": "This is a coacher",
   "main": "index.html",
   "scripts": {
-    "start": "npm run lite",
+    "start": "node index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lite": "lite-server"
   },
   "author": "",
   "license": "ISC",
-
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "font-awesome": "^4.7.0"
