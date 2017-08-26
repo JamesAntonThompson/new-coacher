@@ -10,7 +10,7 @@ body { background-color: ForestGreen; }
 }
 
 .header {
-	border: 1px solid #333;
+	/*border: 1px solid #333;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-radius: 5px;
@@ -21,10 +21,10 @@ body { background-color: ForestGreen; }
 }
 
 .subsheader {
-	border: 1px solid #333;
+	/*border: 1px solid #333;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
-	border-radius: 5px;
+	border-radius: 0px;
 	margin-left: -15px;
 	color: black;
 	text-align: center;
@@ -32,9 +32,9 @@ body { background-color: ForestGreen; }
 }
 
 .selected { 
-	border: 1px solid #333;
+	/*border: 1px solid #333;*/
 	background-color: black; 
-	border-radius: 5px;
+	border-radius: 0px;
 	margin-top: 5px;
 	margin-right: 5px;
 	color: white;
@@ -42,9 +42,9 @@ body { background-color: ForestGreen; }
 }
 
 .unselected {
-	border: 1px solid #333;
+	/*border: 1px solid #333;*/
 	background-color: white; 
-	border-radius: 5px;
+	border-radius: 0px;
 	margin-top: 5px;
 	margin-right: 5px;
 	color: black;

@@ -11,9 +11,8 @@
 		<!-- Stuff needed for Bootstrap -->
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-	    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-	    <script src="node_modules/tether/dist/js/tether.min.js"></script>
-    	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 		<!-- jQuery library -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
@@ -44,9 +43,11 @@
 							<li class="nav-item">{{$ctrl.gameRemaining | date:'mm:ss'}}</li>
 						</ul>
 						<ul class="navbar-nav ml-auto">
-							<button ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()"> Play</button>
-							<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.stop()"> Pause</button>
-							<button ng-if="$ctrl.timerStatus == 'on'" class="btn btn-default" ng-click="$ctrl.end()"> End</button>
+							<button ng-if="$ctrl.timerStatus == 'off'" class="btn btn-default" ng-click="$ctrl.start()"><i class="fa fa-play"></i> Play</button>
+							<div class="btn-group" role="group" aria-label="PauseEnd" ng-if="$ctrl.timerStatus == 'on'" >
+								<button class="btn btn-default" ng-click="$ctrl.stop()"><i class="fa fa-pause"></i> Pause</button>
+								<button class="btn btn-default" ng-click="$ctrl.end()"><i class="fa fa-stop"></i> End</button>
+							</div>
 						</ul>
 
 <!-- 						<ul class="nav navbar-nav navbar-right"> 
@@ -114,12 +115,15 @@
 							</div> <!-- end ng-row -->
 						</div>
 					</div> <!-- end Row -->
-					<div class="Row">
-						<h3 class="subsheader">Substitutes</h3>
+					<div class="row">
+						<div class="col">
+							<h3 class="subsheader">Substitutes</h3>
+						</div>
 					</div>
-					<div class="Row">
+					<div class="row">
 						<div ng-repeat="player in $ctrl.playersBench">
-							<div class="col-md-3 col-sm-3" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
+							<!-- <div class="col-md-3 col-sm-3" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );"> -->
+							<div class="col" ng-class="$ctrl.isPlayerSelected(player.id) ? 'selected' : 'unselected'" ng-click="$ctrl.playerClick( player.id );">
 								<field-player pos="BEN" id="player.id"></field-player>
 							</div>
 						</div>
@@ -163,12 +167,12 @@
 										<div class="row">
 											<h4 class="col-md-4 col-sm-4">{{ player.name }}</h4>
 											<h4 ng-if="$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
-												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="glyphicon glyphicon-time"></span>
+												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="fa fa-clock-o"></span>
 											</h4>
 											<h4 ng-if="!$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
-												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="glyphicon glyphicon-remove-sign"></span>
+												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="fa fa-ban"></span>
 											</h4>
-											<h4 class="col-md-4 col-sm-4"><span ng-click="$ctrl.removePlayer(player.id);" class="glyphicon glyphicon-remove"></span></h4>
+											<h4 class="col-md-4 col-sm-4"><span ng-click="$ctrl.removePlayer(player.id);" class="fa fa-check"></span></h4>
 										</div>
 									</div>
 								</div>
@@ -180,7 +184,6 @@
 					</div>	<!-- end Modal -->
 
 					<div class="row">
-						{{$ctrl.gameStatus}}
 						<div ng-if="$ctrl.gameStatus == 'Game Over'" class="container">
 							<table class="table col-md-12 col-sm=12" style="background-color: white; color: black;">
 								<tbody ng-repeat="player in $ctrl.players">
@@ -200,4 +203,7 @@
 			</div> <!-- end Controller -->
 		</div> <!-- end ng-app -->
 	</body>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="node_modules/tether/dist/js/tether.min.js"></script>
+	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>
