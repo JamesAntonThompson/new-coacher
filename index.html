@@ -162,19 +162,32 @@
 									</button>
 									<h3 class="modal-title" id="bluemixHeaderLabel">Setup squad for this match</h3>
 								</div>
-								<div class="modal-body">
-									<div ng-repeat="player in $ctrl.players">
-										<div class="row">
-											<h4 class="col-md-4 col-sm-4">{{ player.name }}</h4>
-											<h4 ng-if="$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
-												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="fa fa-clock-o"></span>
-											</h4>
-											<h4 ng-if="!$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
-												<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="fa fa-ban"></span>
-											</h4>
-											<h4 class="col-md-4 col-sm-4"><span ng-click="$ctrl.removePlayer(player.id);" class="fa fa-check"></span></h4>
-										</div>
-									</div>
+								<div class="modal-body" >
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Player</th>
+												<th>Monitor Time</th>
+												<th>Playing?</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- <div> -->
+												<tr class="row" ng-repeat="player in $ctrl.players">
+													<!-- <div> -->
+														<td class="col-md-4 col-sm-4">{{ player.name }}</td>
+														<td ng-if="$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
+															<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="fa fa-clock-o"></span>
+														</td>
+														<td ng-if="!$ctrl.isTimeTracking(player.id)" class="col-md-4 col-sm-4">
+															<span ng-click="$ctrl.timeTrackingClick(player.id);" style="color: black;" class="fa fa-ban"></span>
+														</td>
+														<td class="col-md-4 col-sm-4"><span ng-click="$ctrl.removePlayer(player.id);" class="fa fa-check"></span></td>
+													<!-- </div> -->
+												</tr>
+											<!-- </div> -->
+										</tbody>
+									</table>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
